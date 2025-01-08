@@ -1,0 +1,15 @@
+**/node_modules/
+**/package-lock.json
+**/.env
+**/secret_pass.h
+**/.idea/
+
+.DS_Store
+
+
+
+
+
+
+
+fac_webapplication_node_server/iisnode/

@@ -1,0 +1,1844 @@
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[esp]    Script Date: 8/19/2024 11:42:40 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[esp](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[farm_id] [int] NOT NULL,
+	[esp_name] [varchar](100) NOT NULL,
+	[esp_description] [nvarchar](255) NOT NULL,
+	[created_at] [datetime] NOT NULL,
+	[value_sensor] [float] NOT NULL,
+	[mode] [nvarchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[esp] ADD  DEFAULT (getdate()) FOR [created_at]
+GO
+
+ALTER TABLE [dbo].[esp]  WITH CHECK ADD FOREIGN KEY([farm_id])
+REFERENCES [dbo].[farms] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+------------
+
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[farms]    Script Date: 8/19/2024 11:47:43 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[farms](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[farm_name] [nvarchar](100) NULL,
+	[farm_location] [nvarchar](255) NULL,
+	[created_at] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[farms] ADD  DEFAULT (getdate()) FOR [created_at]
+GO
+--------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[last_status]    Script Date: 8/19/2024 11:50:46 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[last_status](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[esp_id] [int] NOT NULL,
+	[status] [nvarchar](50) NOT NULL,
+	[timestamp] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[last_status] ADD  DEFAULT (getdate()) FOR [timestamp]
+GO
+
+ALTER TABLE [dbo].[last_status]  WITH CHECK ADD FOREIGN KEY([esp_id])
+REFERENCES [dbo].[esp] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+-----------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[Esps]    Script Date: 8/20/2024 12:05:23 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Esps](
+	[id_esp] [varchar](23) NOT NULL,
+	[id_user] [varchar](20) NULL,
+	[name_esp] [nvarchar](20) NULL,
+	[date_created] [datetime] NULL,
+	[decription] [nvarchar](100) NULL,
+	[latitude] [float] NULL,
+	[longtitude] [float] NULL,
+	[_state] [int] NULL,
+	[Address] [nvarchar](250) NULL,
+	[category] [smallint] NULL,
+	[available] [smallint] NULL,
+ CONSTRAINT [pk_Esps] PRIMARY KEY CLUSTERED 
+(
+	[id_esp] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Esps] ADD  DEFAULT (getdate()) FOR [date_created]
+GO
+
+ALTER TABLE [dbo].[Esps] ADD  CONSTRAINT [DF_state_false]  DEFAULT ((0)) FOR [_state]
+GO
+
+ALTER TABLE [dbo].[Esps] ADD  CONSTRAINT [DF_available]  DEFAULT ((1)) FOR [available]
+GO
+
+ALTER TABLE [dbo].[Esps]  WITH CHECK ADD  CONSTRAINT [fk__Esps__uid__Users__uid] FOREIGN KEY([id_user])
+REFERENCES [dbo].[Users] ([id_user])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Esps] CHECK CONSTRAINT [fk__Esps__uid__Users__uid]
+GO
+----------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[SensorManagement]    Script Date: 8/20/2024 12:09:50 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[SensorManagement](
+	[id_sensor] [varchar](20) NOT NULL,
+	[id_esp] [varchar](23) NOT NULL,
+	[name_sensor] [nvarchar](20) NULL,
+	[min_max_values] [varchar](7) NULL,
+	[id_equipment] [varchar](20) NULL,
+	[category] [varchar](10) NULL,
+	[available] [smallint] NULL,
+ CONSTRAINT [pk__SM__id_sensor] PRIMARY KEY CLUSTERED 
+(
+	[id_sensor] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[SensorManagement] ADD  CONSTRAINT [DF_sensor_category]  DEFAULT ('sht') FOR [category]
+GO
+
+ALTER TABLE [dbo].[SensorManagement]  WITH CHECK ADD  CONSTRAINT [fk__SM__id_esp__E__id_esp] FOREIGN KEY([id_esp])
+REFERENCES [dbo].[Esps] ([id_esp])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[SensorManagement] CHECK CONSTRAINT [fk__SM__id_esp__E__id_esp]
+GO
+------------------------------------------------------------------------------------------------------
+
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[Users]    Script Date: 8/20/2024 12:16:30 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Users](
+	[id_user] [varchar](20) NOT NULL,
+	[gmail] [nvarchar](74) NOT NULL,
+	[password] [nvarchar](15) NOT NULL,
+	[name] [nvarchar](30) NOT NULL,
+	[phone_no] [varchar](10) NULL,
+	[date_created] [smalldatetime] NOT NULL,
+	[membership] [varchar](10) NULL,
+ CONSTRAINT [PK__Users__id_user] PRIMARY KEY CLUSTERED 
+(
+	[id_user] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UK_Users_gmail] UNIQUE NONCLUSTERED 
+(
+	[gmail] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UK_Users_name] UNIQUE NONCLUSTERED 
+(
+	[name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Users] ADD  CONSTRAINT [DF__Users__date_created]  DEFAULT (getdate()) FOR [date_created]
+GO
+------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[EquipmentManagement]    Script Date: 8/19/2024 11:57:55 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[EquipmentManagement](
+	[id_equipment] [varchar](20) NOT NULL,
+	[id_esp] [varchar](23) NOT NULL,
+	[name_equipment] [nvarchar](20) NULL,
+	[btn_status] [int] NULL,
+	[mode] [smallint] NULL,
+	[expect_sensor_value] [float] NULL,
+	[_index] [smallint] NULL,
+	[available] [smallint] NULL,
+ CONSTRAINT [pk__EM__id_equipment] PRIMARY KEY CLUSTERED 
+(
+	[id_equipment] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[EquipmentManagement] ADD  CONSTRAINT [DF__EM__0__btn_status]  DEFAULT ((0)) FOR [btn_status]
+GO
+
+ALTER TABLE [dbo].[EquipmentManagement] ADD  CONSTRAINT [DF__EM__0__mode]  DEFAULT ((0)) FOR [mode]
+GO
+
+ALTER TABLE [dbo].[EquipmentManagement] ADD  CONSTRAINT [DF__EM__0__expect_sensor_value]  DEFAULT ((0)) FOR [expect_sensor_value]
+GO
+
+ALTER TABLE [dbo].[EquipmentManagement]  WITH CHECK ADD  CONSTRAINT [fk__EM__id_esp__E__id_esp] FOREIGN KEY([id_esp])
+REFERENCES [dbo].[Esps] ([id_esp])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[EquipmentManagement] CHECK CONSTRAINT [fk__EM__id_esp__E__id_esp]
+GO
+-----------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[EquipmentValues]    Script Date: 8/20/2024 12:02:24 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[EquipmentValues](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_equipment] [varchar](20) NOT NULL,
+	[count] [float] NOT NULL,
+	[status] [float] NOT NULL,
+	[datetime] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[EquipmentValues] ADD  DEFAULT (getdate()) FOR [datetime]
+GO
+
+ALTER TABLE [dbo].[EquipmentValues]  WITH CHECK ADD  CONSTRAINT [fk__EV__id_equipment__EM__id_equipment] FOREIGN KEY([id_equipment])
+REFERENCES [dbo].[EquipmentManagement] ([id_equipment])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[EquipmentValues] CHECK CONSTRAINT [fk__EV__id_equipment__EM__id_equipment]
+GO
+------------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[SensorValues]    Script Date: 8/20/2024 12:13:17 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[SensorValues](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_sensor] [varchar](20) NOT NULL,
+	[value_humid] [float] NOT NULL,
+	[datetime] [datetime] NULL,
+	[value_temp] [float] NULL,
+ CONSTRAINT [PK_SensorValues] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[SensorValues] ADD  DEFAULT (getdate()) FOR [datetime]
+GO
+----------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  Table [dbo].[EquipmentSchedule]    Script Date: 8/19/2024 11:54:09 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[EquipmentSchedule](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_equipment] [varchar](20) NOT NULL,
+	[times_offset] [int] NULL,
+	[times] [time](7) NULL,
+ CONSTRAINT [pk__ES__id] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[EquipmentSchedule]  WITH CHECK ADD  CONSTRAINT [fk__ES__id_equipment__EM__id_equipment] FOREIGN KEY([id_equipment])
+REFERENCES [dbo].[EquipmentManagement] ([id_equipment])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[EquipmentSchedule] CHECK CONSTRAINT [fk__ES__id_equipment__EM__id_equipment]
+GO
+
+ALTER TABLE [dbo].[EquipmentSchedule]  WITH CHECK ADD  CONSTRAINT [C__times_offset] CHECK  (([times_offset]>=(0) AND [times_offset]<=(60)))
+GO
+
+ALTER TABLE [dbo].[EquipmentSchedule] CHECK CONSTRAINT [C__times_offset]
+GO
+---------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_farm_pro]    Script Date: 8/20/2024 1:04:58 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[add_farm_pro]
+(
+	@farm_id varchar(23) ,
+	@user_id varchar(20) ,
+	@farm_name nvarchar(20),
+	@decription nvarchar(100),
+	@latitude float,
+	@longtitude float,
+	@address nvarchar(250)
+)
+AS
+BEGIN
+	SET NOCOUNT ON ;
+	
+	INSERT INTO Esps(	id_esp,
+						id_user,
+						name_esp,
+						decription,
+						latitude,
+						longtitude,
+						_state,
+						[Address]
+
+					)
+	VALUES(	@farm_id,
+			@user_id,
+			@farm_name,
+			@decription,
+			@latitude,
+			@longtitude,
+			0,
+			@address)
+
+
+	SELECT 200 AS _state , 'success' AS _status
+
+END
+GO
+-------------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+/****** Object:  StoredProcedure [dbo].[add_values_sensor_pro]    Script Date: 8/20/2024 1:06:15 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER   PROCEDURE [dbo].[add_values_sensor_pro]
+(
+    @id_esp varchar(23),
+    @value_humid nvarchar(20),
+    @value_temp nvarchar(100)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Thêm giá trị vào bảng SensorValues dựa trên id_esp
+    INSERT INTO SensorValues (id_sensor, value_humid, value_temp, datetime)
+    SELECT 
+        sm.id_sensor,  -- Đây là cột đúng chứa ID của sensor
+        @value_humid,
+        @value_temp,
+        GETDATE() -- Lưu thời gian hiện tại vào cột datetime
+    FROM 
+        SensorManagement sm
+    WHERE 
+        sm.id_esp = @id_esp;
+
+    -- Trả về trạng thái thành công
+    SELECT 200 AS _state, 'success' AS _status;
+
+END
+---------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[add_values_sensor_pro]    Script Date: 8/20/2024 1:08:38 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[add_values_sensor_pro]
+(
+    @id_esp varchar(23),
+    @value_humid nvarchar(20),
+    @value_temp nvarchar(100)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Thêm giá trị vào bảng SensorValues dựa trên id_esp
+    INSERT INTO SensorValues (id_sensor, value_humid, value_temp, datetime)
+    SELECT 
+        sm.id_sensor,  -- Đây là cột đúng chứa ID của sensor
+        @value_humid,
+        @value_temp,
+        GETDATE() -- Lưu thời gian hiện tại vào cột datetime
+    FROM 
+        SensorManagement sm
+    WHERE 
+        sm.id_esp = @id_esp;
+
+    -- Trả về trạng thái thành công
+    SELECT 200 AS _state, 'success' AS _status;
+
+END
+GO
+-------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[del_user_pro]    Script Date: 8/20/2024 1:10:23 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[del_user_pro](	@user_name varchar(100))
+
+AS
+BEGIN
+	SET NOCOUNT ON ;
+	IF EXISTS (SELECT 1 FROM Users WHERE name = @user_name)
+	BEGIN
+
+		SELECT * 
+		FROM Users 
+		Where name = @user_name
+	
+		DELETE Users
+		WHERE name = @user_name;
+		
+	END
+	ELSE
+		PRINT 'User not found';
+
+END
+GO
+------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[delete_schedule_pro]    Script Date: 8/20/2024 1:11:43 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[delete_schedule_pro] (@id_equipment varchar(23),
+											
+												@times time(7))
+AS
+BEGIN
+	DELETE EquipmentSchedule
+	WHERE id_equipment = @id_equipment
+	AND times =@times
+
+
+	IF @@ROWCOUNT =0
+		SELECT 201 as _state ,'No schedule has been deleted ' as _status
+	ELSE
+		SELECT 200 AS _state ,'success' as _status
+
+END
+GO
+----------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Delete_tbl_name_on_condition]    Script Date: 8/20/2024 1:14:11 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROC [dbo].[Delete_tbl_name_on_condition]
+(
+    @tbl_name nvarchar(30),
+	@condition nvarchar(max)
+)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = @tbl_name)
+    BEGIN
+		EXEC('DELETE FROM'+ @tbl_name+ 'WHERE'+ @condition+';')
+	END
+    ELSE
+    BEGIN
+        PRINT 'Table does not exist.'
+    END
+END
+GO
+-------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_btn_status_pro]    Script Date: 8/20/2024 1:15:58 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[edit_btn_status_pro] (@id_equipment varchar(23),@btn_status int)
+AS 
+BEGIN
+	UPDATE EquipmentManagement
+	SET btn_status = @btn_status
+	WHERE id_equipment = @id_equipment
+
+	SELECT 200 AS _state ,'success' AS _status
+END
+GO
+--------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_equipment_pro]    Script Date: 8/20/2024 1:17:32 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[edit_equipment_pro](@id_equipment varchar(23),@id_esp varchar(23), @name_equipment nvarchar(20),@_index smallint )
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	UPDATE EquipmentManagement
+	SET name_equipment = @name_equipment ,
+		id_esp = @id_esp,
+		_index = @_index
+	WHERE id_equipment =@id_equipment
+
+	SELECT 200 as state , 'success' as status
+END
+GO
+------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_esp_user_pro]    Script Date: 8/20/2024 1:19:27 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROC [dbo].[edit_esp_user_pro](@id_esp varchar(23),@id_user varchar(20))
+AS
+BEGIN
+	IF ((SELECT id_user FROM Esps WHERE id_esp = @id_esp) IS NOT NULL)
+	BEGIN
+		SELECT 202 AS _state , 'Can not change user ' AS _status
+		RETURN;
+	END
+	
+	UPDATE Esps
+	SET id_user = @id_user
+	WHERE id_esp = @id_esp;
+
+
+	SELECT 200 AS _state , 'success' AS _status;
+
+
+END
+GO
+----------------------------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_farm_pro]    Script Date: 8/20/2024 1:21:20 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[edit_farm_pro] (	@id_esp varchar(23),
+											@new_id_user varchar(20) =NULL,
+											@new_name_esp NVARCHAR(20) = NULL,
+											@new_description NVARCHAR(100) = NULL,
+											@new_latitude float =NULL,
+											@new_longtitude float = NULL,	
+											@address NVARCHAR(250) = NULL)
+AS
+BEGIN
+	IF ((@new_id_user IS NOT NULL) AND ((SELECT id_user  FROM Esps WHERE id_esp =@id_esp) IS NOT NULL))
+	BEGIN
+		SELECT 202 AS _state ,  'Cannot change user' AS _status
+		RETURN;
+	END
+	IF NOT EXISTS (SELECT 1 FROM Esps Where id_esp =@id_esp)
+	BEGIN
+		SELECT 201 AS _state ,  'ESP not found' AS _status
+		RETURN;
+	END
+
+	UPDATE Esps
+	SET id_user= COALESCE(@new_id_user,id_user), -- ~ if (!(@new_id == null))  {id_user =  @new_id_user} else{id_user = id_user}
+		name_esp= COALESCE(@new_name_esp,name_esp),
+		decription= COALESCE(@new_description,decription),
+		latitude= COALESCE(@new_latitude,latitude),
+		longtitude= COALESCE(@new_longtitude,longtitude),
+		[Address] =  COALESCE(@address,[Address])
+	WHERE	id_esp =@id_esp
+
+	SELECT 200 AS _state ,  'success' AS _status
+END
+GO
+---------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_last_state_pro]    Script Date: 8/20/2024 1:22:47 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[edit_last_state_pro](@id_equipment VARCHAR(23),@btn_status INT , @mode SMALLINT ,@expect_sensor_value FLOAT)
+AS
+BEGIN
+	UPDATE EquipmentManagement
+	SET btn_status =@btn_status,
+		mode = @mode,
+		expect_sensor_value =@expect_sensor_value
+	WHERE id_equipment =@id_equipment
+
+	SELECT 200 AS _state ,'success' AS _status
+END 
+GO
+------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_pwd_on_email]    Script Date: 8/20/2024 1:24:42 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROC [dbo].[edit_pwd_on_email](@email varchar(100), @password_ varchar(20))
+AS
+BEGIN
+	IF EXISTS ( SELECT 1 FROM Users WHERE gmail = @email)
+	BEGIN
+		UPDATE Users
+		SET password =@password_
+		WHERE gmail = @email;
+		
+		SELECT id_user,name,gmail,password,phone_no
+		FROM Users
+		WHERE gmail =@email
+	END
+	ELSE
+		PRINT'Email not found'
+
+END
+GO
+--------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_schedule_pro]    Script Date: 8/20/2024 1:26:48 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[edit_schedule_pro] (	@id_equipment varchar(23),
+													@offset int)
+AS
+BEGIN
+	DECLARE @_state int =200;
+	DECLARE @_status varchar(1000) ='success';
+
+	IF EXISTS (SELECT 1 FROM EquipmentManagement WHERE id_equipment =@id_equipment)
+	BEGIN
+
+		UPDATE EquipmentSchedule
+		SET times_offset = @offset
+		WHERE id_equipment = @id_equipment
+	END
+	ELSE
+	BEGIN
+		SET @_state = 201 ;
+		SET	@_status = 'Equipment hasn''t been found' ;
+	END
+	SELECT @_state AS _state ,@_status as _status;
+	RETURN
+END
+GO
+-------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[edit_userfarm_pro]    Script Date: 8/20/2024 1:30:19 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[edit_userfarm_pro] 
+(
+    @id_esp VARCHAR(23),
+    @new_name_esp NVARCHAR(20) = NULL,
+    @new_description NVARCHAR(100) = NULL,
+    @new_latitude FLOAT = NULL,
+    @new_longitude FLOAT = NULL,    
+    @address NVARCHAR(250) = NULL
+)
+AS
+BEGIN
+    DECLARE @_state INT = 200;
+    DECLARE @_status VARCHAR(100);
+
+    IF EXISTS (SELECT 1 FROM Esps WHERE id_esp = @id_esp)
+    BEGIN
+        UPDATE Esps
+        SET name_esp = COALESCE(@new_name_esp, name_esp),
+            [decription] = COALESCE(@new_description, [decription]),
+             [latitude]= COALESCE(@new_latitude, latitude),
+            [longtitude] = COALESCE(@new_longitude, [longtitude]),
+            [Address] = COALESCE(@address, [Address])
+        WHERE id_esp = @id_esp;
+    END
+    ELSE
+    BEGIN
+        SET @_state = 201;
+    END
+
+    SET @_status = CASE @_state 
+                    WHEN 200 THEN 'success'
+                    WHEN 201 THEN 'ESP not found'
+                   END;
+
+    SELECT @_state AS _state, @_status AS _status;
+END
+GO
+------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[insert_device_pro]    Script Date: 8/20/2024 1:31:53 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROC [dbo].[insert_device_pro](@jsonString varchar(max))
+AS 
+BEGIN
+	DECLARE @parse_json_to_table TABLE
+	(
+		id_device varchar(100),
+		id_esp varchar(100),
+		name_device nvarchar(100),
+		id_equipment varchar(100),
+		category varchar(100),
+		min_max_value varchar(100),
+		_index smallint,
+		type varchar(100)
+
+	)
+	DECLARE @error TABLE
+	(
+	state int,
+	status varchar(100)
+	)
+	DECLARE @state int = 200
+	DECLARE @status varchar(100)
+
+	INSERT INTO @parse_json_to_table(id_device,id_esp,name_device,id_equipment,_index,type)
+	SELECT	id_device,
+			id_esp,
+			[name_device],
+			id_equipment,
+			_index,
+			[type]
+	FROM OPENJSON(@jsonString) WITH(
+		id_esp varchar(23) '$.id_esp',
+		device NVARCHAR(MAX) '$.device' AS JSON
+	)
+	OUTER APPLY OPENJSON(device) WITH (
+		id_device VARCHAR(100) '$.id',
+		[name_device] NVARCHAR(100) '$.name',
+		id_equipment VARCHAR(100)'$.id_equipment',
+		[type] NVARCHAR(100) '$.type',
+		category varchar(100) '$.category',
+		_index smallint '$._index',
+		min_max_value varchar(100)'$.min_max_value'
+	)
+	IF NOT EXISTS (SELECT 1 FROM SensorManagement WHERE id_sensor IN (SELECT id_device FROM @parse_json_to_table))
+	BEGIN
+		INSERT INTO SensorManagement(	id_sensor,
+										id_esp,
+										id_equipment,
+										category,
+										min_max_values,
+										name_sensor)
+		SELECT	id_device,
+				id_esp,
+				id_equipment,
+				'sht',
+				min_max_value,
+				name_device 
+		FROM @parse_json_to_table
+		WHERE type='Sensor';
+	END
+
+	ELSE
+	BEGIN
+		SET @state = 201;
+	END
+
+	IF NOT EXISTS (SELECT 1 FROM EquipmentManagement WHERE id_equipment IN (SELECT id_device FROM @parse_json_to_table))
+	BEGIN
+		INSERT INTO EquipmentManagement(	id_equipment,
+											id_esp,
+											name_equipment,
+											_index)
+		SELECT	id_device,
+				id_esp,
+				name_device,
+				_index 
+		FROM @parse_json_to_table
+		WHERE type='Equipment';
+	END
+	ELSE
+	BEGIN
+		IF @state =201
+			SET @state =203
+		ELSE 
+			SET @state = 202
+
+	END
+		SELECT @status =
+		CASE 
+			WHEN @state = 200 THEN 'success'
+			WHEN @state = 201 THEN 'id equipment has been exists'
+			WHEN @state = 202 THEN 'id sensor has been exists'
+			WHEN @state = 203 THEN 'id sensor and id equipment has been exists'
+			END;
+		SELECT @state as state , @status as status
+
+END
+GO
+------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[insert_schedule_pro]    Script Date: 8/20/2024 1:33:39 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROC [dbo].[insert_schedule_pro](@id_equipment varchar(23),@off_set int ,@times time(7))
+AS
+BEGIN
+	IF EXISTS (SELECT 1 FROM EquipmentManagement WHERE id_equipment =@id_equipment)
+	BEGIN
+		INSERT INTO EquipmentSchedule(id_equipment,times_offset,times)
+		VALUES (@id_equipment,@off_set,@times);
+		SELECT 200 AS _state , 'success' as _status;
+	END
+	ELSE
+		SELECT 201 AS _state , 'Equipment hasn''t been found' as _status;
+END
+GO
+-------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[insert_user_pro]    Script Date: 8/20/2024 1:35:12 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROC [dbo].[insert_user_pro] (@user_gmail_ varchar(74),
+									  @passowrd varchar(15),
+									  @user_name_ varchar(30),
+									  @phone_no varchar(10) = NULL,
+									  @membership varchar(10) = NULL)
+AS
+BEGIN
+	DECLARE @user_gmail varchar(100) = null,
+			@user_name varchar(100) = null;
+	SELECT @user_gmail = gmail
+	FROM Users
+	WHERE gmail = @user_gmail_
+	
+	SELECT @user_name = name
+	FROM Users
+	WHERE name = @user_name_
+
+	IF (@user_gmail IS NULL AND @user_name IS NULL)
+	BEGIN
+		 INSERT Users(gmail,password,name,phone_no,membership)
+		 VALUES (@user_gmail_,@passowrd,@user_name_,@phone_no,@membership)
+		 
+		 SELECT 200 as state, 'success' as status;
+	END
+	ELSE 
+	BEGIN
+		IF(@user_gmail IS NOT NULL)
+		BEGIN
+			IF(@user_name IS NOT NULL)
+				SELECT 203 as state , 'Gmail and User name is already existed' as status;
+			ELSE
+				SELECT 201 as state , 'Gmail is alreay existed' as status;
+		END
+		ELSE
+			SELECT 202 AS state , 'User name is already existed' as status;
+
+	END
+END
+GO
+-----------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[check_valid_user]    Script Date: 8/20/2024 1:36:41 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[check_valid_user](@user_name_param VARCHAR(100), @user_passwork_param varchar(100)) 
+RETURNS @mytable TABLE
+(	id_user_ varchar(100),
+	gmail_ varchar(100),
+	user_name_ varchar(100),
+	phone_no_ varchar(100),
+	membership_ varchar(100),
+    status_ INT
+
+)
+AS
+BEGIN
+    DECLARE @status INT = 201; -- Mặc định status là 201
+	DECLARE @id_user varchar(100),
+			@name VARCHAR(100),
+            @password varchar(100),
+			@phone_no_ varchar(100),
+			@gmail varchar(100),
+			@membership_ varchar(100);
+
+     SELECT 
+		@id_user = id_user,
+        @name = name,
+        @phone_no_ = phone_no,
+		@gmail = gmail,
+		@membership_ =membership,
+		@password = password
+    FROM Users 
+    WHERE name = @user_name_param and password = @user_passwork_param;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        -- Nếu tìm thấy id_user, thì set status là 200
+        SET @status = 200;
+    END
+
+    -- Chèn vào bảng @mytable
+    INSERT INTO @mytable(id_user_,user_name_,gmail_,phone_no_,membership_, status_) 
+    VALUES (@id_user,@name,@gmail,@phone_no_,@membership_ ,@status);
+    
+    RETURN;
+END;
+GO
+-----------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[find_farm]    Script Date: 8/20/2024 1:37:24 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[find_farm](@id_user varchar(20),@name_farm nvarchar(20))
+GO
+
+
+RETURNS @esp_info TABLE
+(
+	id_esp varchar(23),
+	name_esp nvarchar(20),
+	state int,
+	status varchar(100)
+)
+AS
+BEGIN
+	INSERT INTO @esp_info(	id_esp,
+							name_esp)
+	SELECT	id_user,
+			name_esp
+	FROM Esps
+	WHERE  @name_farm = name_esp
+	AND @id_user = id_user
+
+	IF @@ROWCOUNT>0
+		UPDATE @esp_info SET state =200, status ='success'
+	ELSE
+		INSERT @esp_info(state,status) VALUES (201,'Farm''s not found')
+	RETURN;
+END
+------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_available_equipment]    Script Date: 8/20/2024 1:38:20 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_available_equipment] ()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id_equipment AS id
+	FROM EquipmentManagement
+	WHERE available = 1 
+)
+GO
+-------------------------------------------------------
+USE [FAC_DB]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION [dbo].[find_farm]
+(
+    @id_user varchar(20),
+    @name_farm nvarchar(20)
+)
+RETURNS @esp_info TABLE
+(
+    id_esp varchar(23),
+    name_esp nvarchar(20),
+    state int,
+    status varchar(100)
+)
+AS
+BEGIN
+    -- Chèn dữ liệu vào bảng tạm
+    INSERT INTO @esp_info(id_esp, name_esp)
+    SELECT @id_user, name_esp
+    FROM Esps
+    WHERE name_esp = @name_farm
+    AND id_user = @id_user;
+
+    -- Kiểm tra số lượng dòng được chèn
+    IF @@ROWCOUNT > 0
+    BEGIN
+        -- Cập nhật trạng thái thành công
+        UPDATE @esp_info 
+        SET state = 200, status = 'success';
+    END
+    ELSE
+    BEGIN
+        -- Chèn dòng với trạng thái không tìm thấy
+        INSERT INTO @esp_info(state, status) 
+        VALUES (201, 'Farm''s not found');
+    END
+
+    RETURN;
+END
+GO
+-------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_available_sensor]    Script Date: 8/20/2024 1:40:35 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_available_sensor] ()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id_sensor AS id
+	FROM SensorManagement
+	WHERE available = 1
+)
+GO
+--------------------------------------------------------------------------USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_controlstate]    Script Date: 8/20/2024 1:42:01 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_controlstate] (@id_esp varchar(23))
+RETURNS @result TABLE
+(
+	id_equipment varchar(23),
+	name_equipment varchar(100),
+	btn_status smallint,
+	mode smallint,
+	expect_sensor_value float,
+	last_status int ,
+	_state INT,
+	_status VARCHAR(100)
+
+)
+AS
+BEGIN
+	
+	DECLARE  @get_id_equipment AS TABLE
+	(
+		id_equipment varchar(23),
+		name_equipment varchar(100),
+		btn_status int,
+		mode smallint,
+		expect_sensor_value float
+	)
+	
+	--thêm id_equipment có value vào bảng kết quả
+	INSERT INTO @get_id_equipment(id_equipment,name_equipment,btn_status,mode,expect_sensor_value)
+	SELECT id_equipment,name_equipment,btn_status,mode,expect_sensor_value
+	FROM EquipmentManagement
+	WHERE id_esp =@id_esp
+	
+
+	INSERT INTO @result(id_equipment,
+						name_equipment,
+						btn_status ,
+						mode ,
+						expect_sensor_value ,
+						last_status,
+						_state,
+						_status)
+	SELECT	t.id_equipment,
+			name_equipment,
+			btn_status ,
+			mode ,
+			expect_sensor_value ,
+			status,
+			200,
+			'success'
+			
+	FROM @get_id_equipment t
+	LEFT JOIN EquipmentValues ev ON t.id_equipment = ev.id_equipment
+	WHERE  id IN  (SELECT MAX(id) FROM EquipmentValues GROUP BY id_equipment)
+	
+
+	--kiểm tra lại id_equipment nào có trong bảng @get_id_equipment mà không nằm trong @result thì thêm vào state 201
+	insert into @result(id_equipment,name_equipment,btn_status,mode,expect_sensor_value,_state,_status)
+	select id_equipment ,name_equipment ,btn_status,mode,expect_sensor_value, 201 , 'equipment''s status not found'
+	from @get_id_equipment
+	where id_equipment not in (select id_equipment from @result)
+	
+	RETURN;
+
+
+
+END
+
+
+
+GO
+-------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_dashboard]    Script Date: 8/20/2024 1:42:44 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE    FUNCTION [dbo].[get_dashboard](@id_user varchar(100))
+RETURNS @dashboard TABLE
+(
+	id_esp_ varchar(100),
+	name_esp_ nvarchar(100),
+	number_of_sensor_ int ,
+	number_of_equipment_ int,
+	description_ nvarchar(max),
+	latitude_ float,
+	longtitude_ float,
+	json_esp_ varchar(max),
+	esp_state_ int,
+	Address nvarchar(max),
+	state_ INT,
+	status_ varchar(max)
+)
+
+AS
+BEGIN
+	
+	WITH EMC (id_esp,equipment_count)
+	AS
+	(
+		SELECT id_esp ,COUNT(*) as equipment_count
+		FROM EquipmentManagement 
+		WHERE id_esp IN (SELECT id_esp from Esps where id_user =@id_user )
+		GROUP BY id_esp
+	),
+	SMC (id_esp,sensor_count)
+	AS
+	(
+		SELECT id_esp ,COUNT(*) as sensor_count
+		FROM SensorManagement 
+		WHERE id_esp IN (SELECT id_esp from Esps where id_user =@id_user )
+		GROUP BY id_esp)
+		INSERT INTO @dashboard( id_esp_,
+							name_esp_,
+							description_,
+							number_of_equipment_,
+							number_of_sensor_,
+							latitude_,
+							longtitude_,
+							Address,
+							esp_state_,
+							state_,
+							status_)
+	SELECT	Esps.id_esp,
+			name_esp,
+			decription,
+			equipment_count as number_of_equipmnet, 
+			sensor_count as SensorNumber,
+			latitude,
+			longtitude,
+			Address,
+			_state,
+			200,
+			'success'  
+	FROM Esps
+	LEFT JOIN SMC ON Esps.id_esp =SMC.id_esp
+	LEFT JOIN EMC ON Esps.id_esp =EMC.id_esp
+	WHERE id_user =@id_user
+
+	RETURN
+END
+GO
+----------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_equipment_schedule]    Script Date: 8/20/2024 1:43:24 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION [dbo].[get_equipment_schedule](@id_equipment VARCHAR(20))
+RETURNS @result TABLE
+(
+    times_offset INT,
+    time_string NVARCHAR(5) -- Chỉ sử dụng cột time_string để lưu giá trị time dưới dạng chuỗi "hh:mm"
+)
+AS
+BEGIN
+    INSERT INTO @result (times_offset, time_string)
+    SELECT 
+        times_offset, 
+        RIGHT('0' + CONVERT(NVARCHAR(2), DATEPART(HOUR, times)), 2) + ':' + RIGHT('0' + CONVERT(NVARCHAR(2), DATEPART(MINUTE, times)), 2) AS time_string
+    FROM EquipmentSchedule
+    WHERE id_equipment = @id_equipment;
+
+    RETURN;
+END
+GO
+--------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_farm_info]    Script Date: 8/20/2024 1:44:12 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_farm_info](@user_id_ varchar(100))
+RETURNS @user_farm_info TABLE
+(
+	farm_id_ varchar(100) ,
+	farm_name_ nvarchar(100),
+	farm_description_ nvarchar(MAX),
+	farm_state_ int,
+	equipment_id_ varchar(100),
+	equipment_name_ nvarchar(100),
+	_index smallint,
+	sensor_id_ varchar(100),
+	sensor_name_ nvarchar(100),
+	func_state int
+)
+AS
+BEGIN
+	
+	--chuyen user_name thanh user_id
+
+	INSERT INTO @user_farm_info(farm_id_,
+								farm_name_, 
+								farm_description_,
+								farm_state_,
+								equipment_id_,
+								equipment_name_,
+								_index,
+								sensor_id_,
+								sensor_name_,
+								func_state
+								)
+    SELECT  E.id_esp,
+			E.name_esp,
+			E.decription,
+			E._state,
+			EM.id_equipment,
+			EM.name_equipment,
+			EM._index,
+			SM.id_sensor,
+			SM.name_sensor,
+			'200'
+    FROM Esps E
+    JOIN EquipmentManagement EM ON E.id_esp = EM.id_esp
+    JOIN SensorManagement SM ON E.id_esp = SM.id_esp
+    WHERE E.id_user = @user_id_
+
+	RETURN;
+END
+GO
+----------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_number_equipment_senssor]    Script Date: 8/20/2024 1:45:02 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_number_equipment_senssor](@id_user varchar(100))
+RETURNS @inf_number_equipment_senssor TABLE
+(
+	id_esp_ varchar(100),
+	name_esp_ varchar(100),
+	number_of_sensor_ int ,
+	number_of_equipment_ int,
+	status_ varchar(20),
+	state_ int 
+)
+
+AS
+BEGIN
+	DECLARE @id_esp varchar(100),
+			@name_esp varchar(100);
+	DECLARE @number_of_sensor smallint
+	DECLARE @number_of_equipment smallint
+	IF EXISTS (SELECT 1 FROM Esps WHERE id_user =@id_user)
+	BEGIN
+		-- tạo con trỏ trên tập giá trị trả về
+		DECLARE cur_id_esp CURSOR LOCAL FOR
+		SELECT id_esp FROM Esps WHERE id_user = @id_user
+		-- bắt đầu sử dụng con trỏ
+		OPEN cur_id_esp
+		-- truyền giá trị tiếp theo từ con trỏ vào @id_esp (trường hợp này là truyền giá trị đầu tiên)
+		FETCH NEXT FROM cur_id_esp INTO @id_esp
+
+		WHILE @@FETCH_STATUS =0 -- dieu kien dung` 
+		BEGIN
+			SELECT @number_of_equipment = COUNT(*) 
+			FROM EquipmentManagement
+			WHERE id_esp =@id_esp
+		
+			SELECT @number_of_sensor = COUNT(*) 
+			FROM SensorManagement
+			WHERE id_esp =@id_esp
+			
+			SELECT @name_esp = name_esp
+			FROM Esps
+			WHERE id_esp =@id_esp
+
+			INSERT @inf_number_equipment_senssor(id_esp_,name_esp_,number_of_equipment_,number_of_sensor_,state_,status_)
+			VALUES (@id_esp,@name_esp,@number_of_equipment,@number_of_sensor,200,'success')
+
+			--truyền giá trị tiếp theo từ con trỏ vào @id_esp
+			FETCH NEXT FROM cur_id_esp INTO @id_esp
+		END
+	END
+	ELSE
+		INSERT INTO @inf_number_equipment_senssor(state_,status_)
+		VALUES(201,'Not found any Esp belong to user')
+	
+	--đóng và giải phóng bộ nhớ cho con trỏ
+	CLOSE cur_id_esp
+	DEALLOCATE cur_id_esp
+
+	RETURN
+END
+GO
+----------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_user]    Script Date: 8/20/2024 1:45:53 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_user](@user_id_param VARCHAR(100)) 
+RETURNS @mytable TABLE
+(
+    id_user_ VARCHAR(20),
+    gmail_ VARCHAR(100),
+    name_ VARCHAR(100),
+    phone_no_ VARCHAR(10),
+    membership_ VARCHAR(10),
+    state_ INT
+)
+AS
+BEGIN
+    DECLARE @state INT = 201; -- Mặc định status là 201
+
+    DECLARE @id_user VARCHAR(20),
+            @gmail VARCHAR(100),
+            @name VARCHAR(100),
+            @phone_no VARCHAR(10),
+            @membership VARCHAR(10);
+
+    SELECT 
+        @id_user = id_user,
+        @gmail = gmail,
+        @name = name,
+        @phone_no = phone_no,
+        @membership = membership
+    FROM Users 
+    WHERE id_user = @user_id_param;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        -- Nếu tìm thấy id_user, thì set status là 200
+        SET @state = 200;
+    END
+
+    -- Chèn vào bảng @mytable
+    INSERT INTO @mytable(id_user_, gmail_, name_, phone_no_, membership_, state_) 
+    VALUES (@id_user, @gmail, @name, @phone_no, @membership, @state);
+    
+    RETURN;
+END;
+GO
+---------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_user_by_gmail]    Script Date: 8/20/2024 1:46:36 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE   FUNCTION [dbo].[get_user_by_gmail](@gmail_param VARCHAR(100)) 
+RETURNS @mytable TABLE
+(
+    id_user_ VARCHAR(20),
+    gmail_ VARCHAR(100),
+    name_ VARCHAR(100),
+    phone_no_ VARCHAR(10),
+    membership_ VARCHAR(10),
+    status_ INT
+)
+AS
+BEGIN
+    DECLARE @status INT = 201; -- Mặc định status là 201
+
+    DECLARE @id_user VARCHAR(20),
+            @gmail VARCHAR(100),
+            @name VARCHAR(100),
+            @phone_no VARCHAR(10),
+            @membership VARCHAR(10);
+
+    SELECT 
+        @id_user = id_user,
+        @gmail = gmail,
+        @name = name,
+        @phone_no = phone_no,
+        @membership = membership
+    FROM Users 
+    WHERE gmail = @gmail_param;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        -- Nếu tìm thấy id_user, thì set status là 200
+        SET @status = 200;
+    END
+
+    -- Chèn vào bảng @mytable
+    INSERT INTO @mytable(id_user_, gmail_, name_, phone_no_, membership_, status_) 
+    VALUES (@id_user, @gmail, @name, @phone_no, @membership, @status);
+    
+    RETURN;
+END;
+GO
+--------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_user_by_id]    Script Date: 8/20/2024 1:47:36 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   FUNCTION [dbo].[get_user_by_id](@user_id_param VARCHAR(100)) 
+RETURNS @mytable TABLE
+(
+    id_user_ VARCHAR(20),
+    gmail_ VARCHAR(100),
+    name_ VARCHAR(100),
+    phone_no_ VARCHAR(10),
+    membership_ VARCHAR(10),
+    status_ INT
+)
+AS
+BEGIN
+    DECLARE @status INT = 201; -- Mặc định status là 201
+
+    DECLARE @id_user VARCHAR(20),
+            @gmail VARCHAR(100),
+            @name VARCHAR(100),
+            @phone_no VARCHAR(10),
+            @membership VARCHAR(10);
+
+    SELECT 
+        @id_user = id_user,
+        @gmail = gmail,
+        @name = name,
+        @phone_no = phone_no,
+        @membership = membership
+    FROM Users 
+    WHERE id_user = @user_id_param;
+
+    IF @@ROWCOUNT > 0
+    BEGIN
+        -- Nếu tìm thấy id_user, thì set status là 200
+        SET @status = 200;
+    END
+
+    -- Chèn vào bảng @mytable
+    INSERT INTO @mytable(id_user_, gmail_, name_, phone_no_, membership_, status_) 
+    VALUES (@id_user, @gmail, @name, @phone_no, @membership, @status);
+    
+    RETURN;
+END;
+GO
+-----------------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[getAvailableIndex]    Script Date: 8/20/2024 1:49:24 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION [dbo].[getAvailableIndex](
+    @id_esp VARCHAR(255)
+)
+RETURNS @ResultTable TABLE (
+    I1 BIT,
+    I2 BIT,
+    I3 BIT,
+    I4 BIT
+)
+AS
+BEGIN
+     DECLARE @Bool1 BIT = CASE WHEN EXISTS (SELECT 1 FROM EquipmentManagement e WHERE e.id_esp = @id_esp AND e._index = 1) THEN 0 ELSE 1 END
+    DECLARE @Bool2 BIT = CASE WHEN EXISTS (SELECT 1 FROM EquipmentManagement e WHERE e.id_esp = @id_esp AND  e._index = 2) THEN 0 ELSE 1 END
+    DECLARE @Bool3 BIT = CASE WHEN EXISTS (SELECT 1 FROM EquipmentManagement e WHERE e.id_esp = @id_esp AND  e._index = 3) THEN 0 ELSE 1 END
+    DECLARE @Bool4 BIT = CASE WHEN EXISTS (SELECT 1 FROM EquipmentManagement e WHERE e.id_esp = @id_esp AND  e._index = 4) THEN 0 ELSE 1 END
+
+    INSERT INTO @ResultTable (I1, I2, I3, I4)
+    VALUES (@Bool1, @Bool2, @Bool3, @Bool4)
+
+    RETURN
+END
+GO
+--------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[get_equipment_by_idesp]    Script Date: 8/20/2024 1:50:55 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION [dbo].[get_equipment_by_idesp](@id_esp VARCHAR(50))
+RETURNS NVARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @jsonResult NVARCHAR(MAX);
+      SET @jsonResult = (
+        SELECT
+            (SELECT
+                e.id_equipment
+             FROM EquipmentManagement e
+             WHERE e.id_esp = @id_esp
+             FOR JSON AUTO
+            ) AS equipment,
+            200 AS _state,
+            'success' AS _status
+        FOR JSON PATH, WITHOUT_ARRAY_WRAPPER
+    );
+
+    RETURN @jsonResult;
+END;
+GO
+---------------------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[getEquipmentSensorInfo]    Script Date: 8/20/2024 1:52:22 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION [dbo].[getEquipmentSensorInfo](@id_esp VARCHAR(100))
+RETURNS NVARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @jsonResult NVARCHAR(MAX);
+    SET @jsonResult = (
+        SELECT TOP 1
+            e.id_equipment AS id,
+            e.name_equipment AS name,
+			e._index,
+ 				(SELECT
+					sm.id_sensor AS id,	
+					sm.name_sensor AS name,
+					sm.category,
+					(
+                        SELECT TOP 9
+						FORMAT(sv.value_temp, '0.#') AS value_temp,
+						FORMAT(sv.value_humid, '0.#') AS value_humid,
+						sv.datetime
+                        FROM SensorValues sv
+                        WHERE sv.id_sensor = sm.id_sensor
+						ORDER BY sv.id DESC
+                        FOR JSON PATH
+                    ) AS value
+
+				FROM SensorManagement sm
+				WHERE sm.id_equipment = e.id_equipment
+				FOR JSON AUTO
+				 )AS Sensors,
+            200 AS _state,
+            'success' AS _status
+        FROM EquipmentManagement e
+        
+		
+        WHERE e.id_esp = @id_esp
+        FOR JSON AUTO
+    );
+
+    RETURN @jsonResult;
+END;
+GO
+---------------------------------------------------------------
+USE [FAC_DB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[getEquipmentSensorInfoWithIdequipment]    Script Date: 8/20/2024 1:53:15 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION [dbo].[getEquipmentSensorInfoWithIdequipment](@id_esp VARCHAR(100),@id_equipment VARCHAR(100))
+RETURNS NVARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @jsonResult NVARCHAR(MAX);
+    SET @jsonResult = (
+        SELECT
+            e.id_equipment AS id,
+            e.name_equipment AS name,
+			e._index,
+				(SELECT
+					sm.id_sensor AS id,	
+					sm.name_sensor AS name,
+					sm.category ,
+					(
+                        SELECT TOP 9
+						FORMAT(sv.value_temp, '0.#') AS value_temp,
+						FORMAT(sv.value_humid, '0.#') AS value_humid,
+						sv.datetime
+                        FROM SensorValues sv
+                        WHERE sv.id_sensor = sm.id_sensor
+						ORDER BY sv.id DESC
+                        FOR JSON PATH
+                    ) AS value
+
+				FROM SensorManagement sm
+				WHERE sm.id_equipment = e.id_equipment
+				FOR JSON AUTO
+				 )AS Sensors,
+            200 AS _state,
+            'success' AS _status
+        FROM EquipmentManagement e
+        
+		
+        WHERE e.id_esp = @id_esp and e.id_equipment = @id_equipment
+        FOR JSON AUTO
+    );
+
+    RETURN @jsonResult;
+END;
+GO
+-------------------------------------------------------------------
+DROP TABLE dbo.Users;
+------------------------------------
+CREATE TABLE [dbo].[Users](
+	[id_user] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[gmail] [nvarchar](74) NOT NULL,
+	[password] [nvarchar](15) NOT NULL,
+	[name] [nvarchar](30) NOT NULL,
+	[phone_no] [varchar](10) NULL,
+	[date_created] [smalldatetime] NOT NULL,
+	[membership] [varchar](10) NULL
+--------------------
+CREATE TABLE [dbo].[Users](
+	[id_user] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[gmail] [nvarchar](74) NOT NULL,
+	[password] [nvarchar](15) NOT NULL,
+	[name] [nvarchar](30) NOT NULL,
+	[phone_no] [varchar](10) NULL,
+	[date_created] [smalldatetime] NOT NULL DEFAULT GETDATE(),
+	[membership] [varchar](10) NULL)

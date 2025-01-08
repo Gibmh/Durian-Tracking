@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ngunemay123_SampleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EquipmentManagement">
+    <Key>
+      <PropertyRef Name="id_equipment" />
+    </Key>
+    <Property Name="id_equipment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_esp" Type="String" MaxLength="23" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name_equipment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="automode" Type="Int32" />
+    <Property Name="id_sensor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Esp" Relationship="Self.fk__EM__id_esp__E__id_esp" FromRole="EquipmentManagement" ToRole="Esps" />
+    <NavigationProperty Name="EquipmentSchedules" Relationship="Self.fk__ES__id_equipment__EM__id_equipment" FromRole="EquipmentManagement" ToRole="EquipmentSchedule" />
+    <NavigationProperty Name="EquipmentValues" Relationship="Self.fk__EV__id_equipment__EM__id_equipment" FromRole="EquipmentManagement" ToRole="EquipmentValues" />
+    <NavigationProperty Name="EquipmentValueLogs" Relationship="Self.fk__EVlog__id_equipment__EM__id_equipmennt" FromRole="EquipmentManagement" ToRole="EquipmentValueLog" />
+  </EntityType>
+  <EntityType Name="EquipmentSchedule">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_equipment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="times_offset" Type="Int32" />
+    <Property Name="times" Type="Time" Precision="7" />
+    <NavigationProperty Name="EquipmentManagement" Relationship="Self.fk__ES__id_equipment__EM__id_equipment" FromRole="EquipmentSchedule" ToRole="EquipmentManagement" />
+  </EntityType>
+  <EntityType Name="EquipmentValueLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_equipment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="values" Type="Double" />
+    <Property Name="status" Type="Double" Nullable="false" />
+    <NavigationProperty Name="EquipmentManagement" Relationship="Self.fk__EVlog__id_equipment__EM__id_equipmennt" FromRole="EquipmentValueLog" ToRole="EquipmentManagement" />
+  </EntityType>
+  <EntityType Name="EquipmentValue">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_equipment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="values" Type="Double" Nullable="false" />
+    <Property Name="status" Type="Double" Nullable="false" />
+    <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EquipmentManagement" Relationship="Self.fk__EV__id_equipment__EM__id_equipment" FromRole="EquipmentValues" ToRole="EquipmentManagement" />
+  </EntityType>
+  <EntityType Name="Esp">
+    <Key>
+      <PropertyRef Name="id_esp" />
+    </Key>
+    <Property Name="id_esp" Type="String" MaxLength="23" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="name_esp" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="date_created" Type="DateTime" Precision="3" />
+    <Property Name="decription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EquipmentManagements" Relationship="Self.fk__EM__id_esp__E__id_esp" FromRole="Esps" ToRole="EquipmentManagement" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Esps__id_user__6C190EBB" FromRole="Esps" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__Esps__id_user__6D0D32F4" FromRole="Esps" ToRole="Users" />
+    <NavigationProperty Name="SensorManagements" Relationship="Self.fk__SM__id_esp__E__id_esp" FromRole="Esps" ToRole="SensorManagement" />
+  </EntityType>
+  <EntityType Name="SensorManagement">
+    <Key>
+      <PropertyRef Name="id_sensor" />
+    </Key>
+    <Property Name="id_sensor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_esp" Type="String" MaxLength="23" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name_sensor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="expectedValues" Type="Double" />
+    <Property Name="min_max_values" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Esp" Relationship="Self.fk__SM__id_esp__E__id_esp" FromRole="SensorManagement" ToRole="Esps" />
+    <NavigationProperty Name="SensorValues" Relationship="Self.fk__SV__id_sensor__SM__id_sensor" FromRole="SensorManagement" ToRole="SensorValues" />
+  </EntityType>
+  <EntityType Name="SensorValue">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_sensor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="value" Type="Double" Nullable="false" />
+    <Property Name="datetime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="SensorManagement" Relationship="Self.fk__SV__id_sensor__SM__id_sensor" FromRole="SensorValues" ToRole="SensorManagement" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="phone_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="date_created" Type="DateTime" Precision="3" />
+    <Property Name="membership" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Esps" Relationship="Self.FK__Esps__id_user__6C190EBB" FromRole="Users" ToRole="Esps" />
+    <NavigationProperty Name="Esps1" Relationship="Self.FK__Esps__id_user__6D0D32F4" FromRole="Users" ToRole="Esps" />
+  </EntityType>
+  <Association Name="fk__EM__id_esp__E__id_esp">
+    <End Role="Esps" Type="Self.Esp" Multiplicity="1" />
+    <End Role="EquipmentManagement" Type="Self.EquipmentManagement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Esps">
+        <PropertyRef Name="id_esp" />
+      </Principal>
+      <Dependent Role="EquipmentManagement">
+        <PropertyRef Name="id_esp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk__ES__id_equipment__EM__id_equipment">
+    <End Role="EquipmentManagement" Type="Self.EquipmentManagement" Multiplicity="1" />
+    <End Role="EquipmentSchedule" Type="Self.EquipmentSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentManagement">
+        <PropertyRef Name="id_equipment" />
+      </Principal>
+      <Dependent Role="EquipmentSchedule">
+        <PropertyRef Name="id_equipment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk__EV__id_equipment__EM__id_equipment">
+    <End Role="EquipmentManagement" Type="Self.EquipmentManagement" Multiplicity="1" />
+    <End Role="EquipmentValues" Type="Self.EquipmentValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentManagement">
+        <PropertyRef Name="id_equipment" />
+      </Principal>
+      <Dependent Role="EquipmentValues">
+        <PropertyRef Name="id_equipment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk__EVlog__id_equipment__EM__id_equipmennt">
+    <End Role="EquipmentManagement" Type="Self.EquipmentManagement" Multiplicity="1" />
+    <End Role="EquipmentValueLog" Type="Self.EquipmentValueLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentManagement">
+        <PropertyRef Name="id_equipment" />
+      </Principal>
+      <Dependent Role="EquipmentValueLog">
+        <PropertyRef Name="id_equipment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Esps__id_user__6C190EBB">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Esps" Type="Self.Esp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Esps">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Esps__id_user__6D0D32F4">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Esps" Type="Self.Esp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Esps">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk__SM__id_esp__E__id_esp">
+    <End Role="Esps" Type="Self.Esp" Multiplicity="1" />
+    <End Role="SensorManagement" Type="Self.SensorManagement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Esps">
+        <PropertyRef Name="id_esp" />
+      </Principal>
+      <Dependent Role="SensorManagement">
+        <PropertyRef Name="id_esp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk__SV__id_sensor__SM__id_sensor">
+    <End Role="SensorManagement" Type="Self.SensorManagement" Multiplicity="1" />
+    <End Role="SensorValues" Type="Self.SensorValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SensorManagement">
+        <PropertyRef Name="id_sensor" />
+      </Principal>
+      <Dependent Role="SensorValues">
+        <PropertyRef Name="id_sensor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ngunemay123_SampleDBEntities6" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EquipmentManagements" EntityType="Self.EquipmentManagement" />
+    <EntitySet Name="EquipmentSchedules" EntityType="Self.EquipmentSchedule" />
+    <EntitySet Name="EquipmentValueLogs" EntityType="Self.EquipmentValueLog" />
+    <EntitySet Name="EquipmentValues" EntityType="Self.EquipmentValue" />
+    <EntitySet Name="Esps" EntityType="Self.Esp" />
+    <EntitySet Name="SensorManagements" EntityType="Self.SensorManagement" />
+    <EntitySet Name="SensorValues" EntityType="Self.SensorValue" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="fk__EM__id_esp__E__id_esp" Association="Self.fk__EM__id_esp__E__id_esp">
+      <End Role="Esps" EntitySet="Esps" />
+      <End Role="EquipmentManagement" EntitySet="EquipmentManagements" />
+    </AssociationSet>
+    <AssociationSet Name="fk__ES__id_equipment__EM__id_equipment" Association="Self.fk__ES__id_equipment__EM__id_equipment">
+      <End Role="EquipmentManagement" EntitySet="EquipmentManagements" />
+      <End Role="EquipmentSchedule" EntitySet="EquipmentSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk__EV__id_equipment__EM__id_equipment" Association="Self.fk__EV__id_equipment__EM__id_equipment">
+      <End Role="EquipmentManagement" EntitySet="EquipmentManagements" />
+      <End Role="EquipmentValues" EntitySet="EquipmentValues" />
+    </AssociationSet>
+    <AssociationSet Name="fk__EVlog__id_equipment__EM__id_equipmennt" Association="Self.fk__EVlog__id_equipment__EM__id_equipmennt">
+      <End Role="EquipmentManagement" EntitySet="EquipmentManagements" />
+      <End Role="EquipmentValueLog" EntitySet="EquipmentValueLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Esps__id_user__6C190EBB" Association="Self.FK__Esps__id_user__6C190EBB">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Esps" EntitySet="Esps" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Esps__id_user__6D0D32F4" Association="Self.FK__Esps__id_user__6D0D32F4">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Esps" EntitySet="Esps" />
+    </AssociationSet>
+    <AssociationSet Name="fk__SM__id_esp__E__id_esp" Association="Self.fk__SM__id_esp__E__id_esp">
+      <End Role="Esps" EntitySet="Esps" />
+      <End Role="SensorManagement" EntitySet="SensorManagements" />
+    </AssociationSet>
+    <AssociationSet Name="fk__SV__id_sensor__SM__id_sensor" Association="Self.fk__SV__id_sensor__SM__id_sensor">
+      <End Role="SensorManagement" EntitySet="SensorManagements" />
+      <End Role="SensorValues" EntitySet="SensorValues" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

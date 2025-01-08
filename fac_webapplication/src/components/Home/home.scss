@@ -1,0 +1,2725 @@
+.Fac_Home {
+  width: 100%;
+  height: auto;
+  $background: rgba(0, 0, 0, 0.5);
+  $background_element: rgba(255, 255, 255, 0.1);
+  $box_shadow_color: #000000;
+  $outline_color: rgba(255, 255, 255, 0.9);
+  $color_text: #fff;
+  transition: 0.3s;
+
+  &_Web {
+    color: $color_text;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 574px;
+    min-height: 403px;
+
+    &_Dashboardcontainer {
+      height: 100%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+
+      padding: 10px 15px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      margin: auto;
+      flex-direction: column;
+      max-width: 2500px;
+
+      &_Header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 40px;
+        font-weight: bold;
+        height: 54px;
+
+        .center {
+          display: flex;
+          align-items: center;
+        }
+
+        &_Button {
+          width: 150px;
+          height: 40px;
+          font-size: 21px;
+          font-weight: 500;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          outline: 2px solid rgba(255, 255, 255, 0.9);
+          background: $background_element;
+          color: $color_text;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+          }
+        }
+
+        &_Input {
+          margin-right: 15px;
+          height: 40px;
+          border-radius: 8px;
+          padding: 5px 10px;
+          box-sizing: border-box;
+          width: 220px;
+          font-size: 20px;
+          outline: 2px solid $outline_color;
+          background-color: #ffffff00;
+          border: 2px solid transparent;
+          color: #ffffff;
+
+          &::placeholder {
+            color: white;
+          }
+        }
+      }
+
+      &_Farms {
+        // max-height: 250px;
+        padding: 2px 2px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        margin-left: 5px;
+        width: 100%;
+        height: calc(100% - 54px);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &_Item {
+          margin-top: 18px;
+          height: 150px;
+          width: 100%;
+          background: $background_element;
+          backdrop-filter: blur(4px);
+          box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+            rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+          border-radius: 8px;
+          outline: 2px solid $outline_color;
+          padding: 5px 15px;
+          overflow: hidden;
+          box-sizing: border-box;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+
+          &_Header {
+            position: relative;
+            z-index: 45;
+
+            font-size: 24px;
+            font-weight: 500;
+            display: flex;
+
+            justify-content: space-between;
+
+            &_State {
+              margin-top: 5px;
+              padding: 5px 5px;
+              box-sizing: border-box;
+              height: 35px;
+              border-radius: 8px;
+
+              background-color: rgba(255, 255, 255, 0.5);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 20px;
+            }
+
+            &_Edit {
+              position: absolute;
+              top: 5px;
+              right: 175px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              height: 35px;
+              border-radius: 8px;
+              background-color: rgba(255, 255, 255, 0.5);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 20px;
+              border: 2px solid transparent;
+              z-index: 50;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: rgb(43, 42, 42);
+                border-color: rgb(33, 32, 32);
+              }
+            }
+
+            .Icon {
+              margin-left: 10px;
+              font-size: 20px;
+              margin-top: 2px;
+            }
+
+            .center {
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          &_Description {
+            margin-top: 5px;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
+            font-size: 20px;
+            height: 65px;
+          }
+
+          &_Amount {
+            display: flex;
+            font-size: 17px;
+          }
+        }
+      }
+
+      &_Farms::-webkit-scrollbar {
+        height: 1px;
+
+        scrollbar-width: thin;
+      }
+    }
+
+    &_Farmcontainer {
+      height: 100%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+      position: relative;
+
+      &_Header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 40px;
+
+        &_Left {
+          display: flex;
+          font-size: 28px;
+          padding-bottom: 8px;
+          box-sizing: border-box;
+          font-weight: 500;
+        }
+
+        &_Right {
+          display: flex;
+          align-items: center;
+
+          &_Status {
+            height: 40px;
+            width: 100%;
+            white-space: nowrap ;
+            padding: 0px 10px;
+            box-sizing: border-box;
+            background: $background_element;
+            backdrop-filter: blur(4px);
+            box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+              rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+            border-radius: 8px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            outline: 2px solid $outline_color;
+          }
+
+          &_Button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            font-size: 20px;
+            font-weight: 500;
+            border-radius: 8px;
+            margin-right: 15px;
+            border: none;
+            outline: 2px solid $outline_color;
+            background: $background_element;
+            backdrop-filter: blur(4px);
+            box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+              rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+            color: $color_text;
+            cursor: pointer;
+            white-space: nowrap; // ngan xuong dong
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.2);
+            }
+          }
+
+          .block {
+            opacity: 0.7;
+            cursor: not-allowed;
+
+            &:hover {
+              background-color: $background_element
+            }
+          }
+
+          .Icon {
+            margin-right: 5px;
+          }
+        }
+      }
+
+      &_Chart {
+        display: flex;
+        width: 100%;
+        height: calc(70% - 40px);
+
+        &_Left {
+          width: calc(100% - 185px);
+          // height: 100%;
+          margin-top: 15px;
+
+          height: calc(100% - 35px + 2px);
+          background: $background_element;
+          backdrop-filter: blur(4px);
+          box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+            rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+          border-radius: 8px;
+          outline: 2px solid $outline_color;
+          display: flex;
+          padding: 10px 20px;
+          box-sizing: border-box;
+          // background-color: $color_text;
+        }
+
+        &_Right {
+          width: 200px;
+          margin-left: 15px;
+
+          // background-color: $color_text;
+
+          margin-top: 15px;
+
+          position: relative;
+          height: calc(100% - 35px + 2px);
+          background: $background_element;
+          backdrop-filter: blur(4px);
+          box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+            rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+          border-radius: 8px;
+          outline: 2px solid $outline_color;
+          display: flex;
+          overflow: auto;
+          overflow-x: hidden;
+
+          flex-direction: column;
+          align-items: center;
+          padding: 15px 10px;
+          box-sizing: border-box;
+
+          &_Header {
+            display: flex;
+            width: 80%;
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            font-size: 20px;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            //cursor: pointer;
+
+            // &:hover {
+            //   background-color: rgba(255, 255, 255, 0.6);
+            // }
+          }
+
+          &_Dropbox {
+            position: absolute;
+            width: 100%;
+
+            user-select: none;
+
+            height: calc(100% - 60px - 10px + 2px);
+            right: 0;
+            top: 0;
+            margin-top: 60px;
+
+            overflow-y: auto;
+            animation: fadeup_listequipment 0.3s ease-in-out;
+
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+              rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+            &_Item {
+              width: 100%;
+              height: 30px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              margin-top: 10px;
+              display: flex;
+              align-items: center;
+              font-size: 20px;
+              font-weight: 500;
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.75);
+              }
+            }
+
+            &::-webkit-scrollbar {
+              height: 1px;
+              scrollbar-width: thin;
+            }
+          }
+
+          &_Date {
+            margin-top: 2px;
+            font-size: 20px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            // overflow: hidden;
+            font-weight: 500;
+          }
+
+          &_Content {
+            margin-top: 5px;
+
+            font-size: 20px;
+            margin-right: auto;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          &::-webkit-scrollbar {
+            height: 1px;
+            scrollbar-width: thin;
+          }
+        }
+      }
+
+      &_Controller {
+        height: 30%;
+        width: 40%;
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        min-width: 330px;
+        padding: 0px 10px 5px 10px;
+        box-sizing: border-box;
+        outline: 2px solid $outline_color;
+        overflow: auto;
+        font-size: 22px;
+        user-select: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &_Header {
+          width: 100%;
+          height: 30px;
+          display: flex;
+          position: relative;
+          align-items: center;
+          justify-content: space-between;
+
+          &_Mode {
+            display: flex;
+            align-items: center;
+            user-select: none;
+            font-size: 20px;
+            font-weight: 500;
+
+            &_State {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 5px;
+              padding: 0px 10px;
+              margin-left: 10px;
+              background-color: rgba(255, 255, 255, 0.5);
+              border-radius: 8px;
+
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.6);
+              }
+
+              &_Dropbox {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin-top: 40px;
+
+                width: 140px;
+                height: 90px;
+                animation: fadeup_listequipment 0.3s ease-in-out;
+                overflow-y: auto;
+                outline: 2px solid $outline_color;
+                z-index: 5;
+                border-radius: 8px;
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(5px);
+                box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+                &_Item {
+                  width: 100%;
+                  height: 30px;
+                  padding: 5px 10px;
+                  box-sizing: border-box;
+                  margin-top: 10px;
+                  display: flex;
+                  align-items: center;
+                  font-size: 18px;
+                  font-weight: 500;
+                  cursor: pointer;
+                  // user-select: none;
+
+                  &:hover {
+                    background-color: rgba(255, 255, 255, 0.75);
+                  }
+                }
+
+                &::-webkit-scrollbar {
+                  height: 1px;
+                  scrollbar-width: thin;
+                }
+              }
+            }
+          }
+        }
+
+        &_Body {
+          width: 100%;
+          height: calc(100% - 30px);
+
+          padding: 0 15%;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: center;
+
+          &_Control {
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            justify-content: space-between;
+
+            &_switch {
+              position: relative;
+              display: inline-block;
+              width: 80px;
+              height: 40px;
+
+              &_input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+              }
+
+              .slider {
+                width: 80px;
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                outline: 2px solid $outline_color;
+                background-color: #000000;
+                -webkit-transition: 0.2s;
+                transition: 0.2s;
+              }
+
+              .slider:before {
+                position: absolute;
+                content: "";
+                height: 32px;
+                width: 32px;
+                left: 4px;
+                bottom: 4px;
+                background-color: rgb(255, 0, 0);
+                -webkit-transition: 0.2s;
+                transition: 0.2s;
+              }
+
+              input:checked+.slider {
+                background-color: #000000;
+              }
+
+              input:checked+.slider:before {
+                -webkit-transform: translateX(40px);
+                -ms-transform: translateX(40px);
+                transform: translateX(40px);
+                background-color: rgb(10, 255, 27);
+              }
+
+              /* Rounded sliders */
+              .slider.round {
+                border-radius: 40px;
+              }
+
+              .slider.round:before {
+                border-radius: 50%;
+              }
+            }
+
+            &_Statecontainer {
+              display: flex;
+              align-items: center;
+
+              &_State {
+                margin-top: 5px;
+                font-size: 20px;
+                margin-left: 10px;
+              }
+            }
+
+            &_Slidecontainer {
+              width: 100%;
+              margin-top: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              &_Slider {
+                -webkit-appearance: none;
+                /* Override default CSS styles */
+                appearance: none;
+                width: 80%;
+                /* Full-width */
+                height: 5px;
+                /* Specified height */
+                background: #ffffff;
+                /* Grey background */
+                outline: none;
+                /* Remove outline */
+                opacity: 1;
+                /* Set transparency (for mouse-over effects on hover) */
+                -webkit-transition: 0.2s;
+                /* 0.2 seconds transition on hover */
+                transition: opacity 0.2s;
+
+                &::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  /* Override default look */
+                  appearance: none;
+                  width: 20px;
+                  /* Set a specific slider handle width */
+                  height: 20px;
+                  /* Slider handle height */
+                  background: #ffffff;
+                  /* Green background */
+                  cursor: pointer;
+                  /* Cursor on hover */
+                  border-radius: 50%;
+                }
+
+                &::-moz-range-thumb {
+                  width: 25px;
+                  /* Set a specific slider handle width */
+                  height: 25px;
+                  /* Slider handle height */
+                  background: #ffffff;
+                  /* Green background */
+                  cursor: pointer;
+                  /* Cursor on hover */
+                }
+              }
+            }
+
+            &_Timecontainer {
+              width: 100%;
+              height: 30px;
+              margin-top: 10px;
+
+              background-color: rgba(255, 255, 255, 0.5);
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              overflow: hidden;
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.6);
+              }
+
+              &_Times {
+                font-size: 20px;
+                margin-left: 6px;
+              }
+            }
+          }
+        }
+
+        &::-webkit-scrollbar {
+          height: 1px;
+
+          scrollbar-width: thin;
+        }
+      }
+
+      &_Settime {
+        width: 350px;
+        top: 50%;
+        left: 50%;
+        height: 350px;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        background-color: #000000;
+        border-radius: 8px;
+        outline: 2px solid $outline_color;
+
+        &_Title {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 10px;
+          box-sizing: border-box;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          border-bottom: 2px solid #ffffff;
+
+          &_Offset {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            position: relative;
+
+            &_Input {
+              height: 25px;
+              width: 50px;
+              display: flex;
+              align-items: center;
+              margin-left: 10px;
+              outline: 2px solid rgba(255, 255, 255, 0.9);
+              background: $background_element;
+              color: $color_text;
+              padding: 0px 5px;
+              box-sizing: border-box;
+              font-size: 17px;
+              border-radius: 8px;
+              cursor: pointer;
+
+              &:hover {
+                background-color: #686666;
+
+              }
+
+            }
+
+            &_Dropbox {
+              position: absolute;
+              top: 35px;
+              right: 0;
+              height: 150px;
+              width: 50px;
+              background-color: #000000;
+              border-radius: 8px;
+              outline: 2px solid $outline_color;
+              padding: 1px 0px;
+              box-sizing: border-box;
+              display: grid;
+              justify-content: center;
+              align-items: center;
+              grid-template-columns: repeat(1, 1fr);
+              overflow-y: auto;
+              gap: 10px;
+
+              &_Item {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                color: $color_text;
+                padding: 0px 5px;
+                box-sizing: border-box;
+                font-size: 17px;
+                border-radius: 1px;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: #686666;
+
+                }
+              }
+
+              &::-webkit-scrollbar {
+                height: 1px;
+
+                scrollbar-width: thin;
+              }
+            }
+          }
+
+          &_Icon {
+            rotate: 45deg;
+            cursor: pointer;
+          }
+        }
+
+        &_Body {
+          width: 100%;
+          height: calc(100% - 50px);
+          display: flex;
+
+          &_Left {
+            flex: 7;
+            height: 100%;
+
+            box-sizing: border-box;
+
+            &_Title {
+              padding-top: 10px;
+              padding-left: 10px;
+              padding-right: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              font-size: 20px;
+
+              .Icon {
+                cursor: pointer;
+              }
+            }
+
+            &_Times {
+              width: 100%;
+              height: calc(100% - 45px);
+              overflow-y: auto;
+              padding-left: 10px;
+              box-sizing: border-box;
+
+              &_Item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: 35px;
+                margin-top: 10px;
+                padding: 5px 5px;
+                box-sizing: border-box;
+                font-size: 20px;
+                background-color: #686666;
+                border-radius: 8px;
+
+                &_Edit {
+                  display: flex;
+                  align-items: center;
+
+                  .Icon {
+                    margin-left: 10px;
+                    cursor: pointer;
+                  }
+                }
+              }
+
+              &::-webkit-scrollbar {
+                height: 1px;
+                scrollbar-width: thin;
+              }
+            }
+          }
+
+          &_Right {
+            flex: 3;
+            height: 100%;
+            position: relative;
+
+            &_Button {
+              width: 60px;
+              height: 25px;
+              position: absolute;
+              border-radius: 8px;
+              bottom: 10px;
+              right: 10px;
+              margin-left: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      &_Nofarm {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 30px;
+        font-weight: 500;
+      }
+    }
+
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &_Addfarmcontainer {
+      height: 100%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+
+      &_Title {
+        height: 60px;
+        display: flex;
+        font-size: 28px;
+        padding-bottom: 8px;
+        box-sizing: border-box;
+        font-weight: 500;
+      }
+
+      &_Body {
+        width: 100%;
+        height: calc(100% - 60px);
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        outline: 2px solid $outline_color;
+        padding: 15px 25px 15px 30px;
+        box-sizing: border-box;
+        display: flex;
+
+        overflow: auto;
+        align-items: center;
+
+        &_Left {
+          width: 50%;
+          height: 100%;
+
+          &_Items {
+            display: flex;
+            flex-direction: column;
+            font-size: 23px;
+
+            &_Input {
+              color: $color_text;
+              margin-top: 10px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              width: 90%;
+              max-width: 90%;
+              height: 40px;
+              max-height: 100px;
+              border-radius: 8px;
+              font-size: 20px;
+              outline: 2px solid $outline_color;
+              background-color: #ffffff00;
+              border: 2px solid transparent;
+            }
+          }
+
+          &_Index {
+            width: 190px;
+            height: 40px;
+            margin-top: 15px;
+            font-size: 23px;
+            display: flex;
+            align-items: center;
+
+            &_Selection {
+              position: relative;
+              width: 70px;
+              height: 35px;
+              outline: #fff 2px solid;
+              border-radius: 8px;
+              font-size: 20px;
+              margin-left: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              user-select: none;
+              cursor: pointer;
+
+              &_Dropbox {
+                position: absolute;
+                top: 44px;
+                left: 0;
+                width: 70px;
+                height: 130px;
+                outline: #fff 2px solid;
+                border-radius: 8px;
+
+                .Items {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-top: 5px;
+                  cursor: pointer;
+
+                  &:hover {
+                    background: rgba(255, 255, 255, 0.6);
+                    color: black;
+                    border-color: rgb(33, 32, 32);
+                  }
+                }
+                  .Itemsdisable {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 5px;
+                    cursor: not-allowed;
+
+                    background: rgba(255, 255, 255, 0.2);
+
+                  }
+                
+              }
+            }
+          }
+        }
+
+        &_Right {
+          user-select: none;
+          width: 50%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-between;
+
+          &_Map {
+            width: 100%;
+            margin-top: 10px;
+            height: 300px;
+            border-radius: 8px;
+          }
+
+          &_Farmselection {
+            display: flex;
+            width: 98%;
+            justify-items: flex-start;
+            flex-direction: column;
+            font-size: 23px;
+            margin-right: auto;
+            position: relative;
+            cursor: pointer;
+            &_Input {
+              color: $color_text;
+              margin-top: 10px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              width: 100%;
+              height: 40px;
+              border-radius: 8px;
+              font-size: 20px;
+              outline: 2px solid $outline_color;
+              background-color: #ffffff00;
+              border: 2px solid transparent;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: black;
+                border-color: rgb(33, 32, 32);
+              }
+            }
+
+            &_Dropbox {
+              position: absolute;
+              top: 0;
+              left: 0;
+              margin-top: 90px;
+              width: 100%;
+              height: 180px;
+              outline: 2px solid $outline_color;
+              animation: fadeup_listequipment 0.3s ease-in-out;
+              overflow-y: auto;
+              border-radius: 8px;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(5px);
+              box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+              &_Items {
+                width: 100%;
+                height: 30px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                font-size: 20px;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: rgba(255, 255, 255, 0.7);
+                }
+              }
+
+              &::-webkit-scrollbar {
+                height: 1px;
+                scrollbar-width: thin;
+              }
+            }
+          }
+
+          &_Buttons {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            &_Items {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              height: 40px;
+              outline: 2px solid $outline_color;
+              background: $background_element;
+              color: $color_text;
+              cursor: pointer;
+              font-size: 20px;
+              border: 2px solid transparent;
+              border-radius: 8px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: black;
+                border-color: rgb(33, 32, 32);
+              }
+            }
+          }
+        }
+
+        &_Qrbutton {
+          padding: 10px 10px;
+          box-sizing: border-box;
+          font-size: 21px;
+          font-weight: 500;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid transparent;
+          background: $background_element;
+          color: $color_text;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            border-color: rgb(33, 32, 32);
+          }
+        }
+
+        &_State {
+          margin-top: 20px;
+          font-size: 25px;
+          display: flex;
+          align-items: center;
+        }
+
+        &::-webkit-scrollbar {
+          height: 1px;
+
+          scrollbar-width: thin;
+        }
+      }
+    }
+
+    &_Usercontainer {
+      height: 100%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+
+      &_Body {
+        width: 100%;
+        height: calc(100% - 60px);
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        padding: 25px 25px 15px 30px;
+        box-sizing: border-box;
+        outline: 2px solid $outline_color;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        font-size: 20px;
+
+        &_Userinfo {
+          width: 100%;
+          height: 80px;
+          display: flex;
+
+          &_Image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+          }
+
+          &_Name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            margin-left: 30px;
+            border-left: 2px solid #d4dae3;
+            padding: 10px 20px;
+            box-sizing: border-box;
+          }
+        }
+
+        &_Language {
+          margin-top: 50px;
+          width: 100%;
+          padding-left: 10px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+
+          &_Options {
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            margin-left: 20px;
+            padding: 0px 15px;
+            border-radius: 8px;
+            margin-top: 4px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-sizing: border-box;
+
+            &_Dropbox {
+              position: absolute;
+              height: 130px;
+              width: 150px;
+              right: 0;
+              top: 0;
+              margin-top: 35px;
+              overflow-y: auto;
+              animation: fadeup_listequipment 0.3s ease-in-out;
+              outline: 2px solid $outline_color;
+              border-radius: 8px;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(5px);
+              box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+              &_Items {
+                width: 100%;
+                height: 30px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                margin-top: 10px;
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+                font-weight: 500;
+                cursor: pointer;
+                // user-select: none;
+
+                &:hover {
+                  background-color: rgba(255, 255, 255, 0.75);
+                }
+              }
+            }
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.7);
+              border-radius: 8px;
+            }
+          }
+        }
+
+        &_Items {
+          margin-top: 10px;
+          width: 100%;
+          height: 40px;
+          padding-left: 10px;
+          box-sizing: border-box;
+          display: flex;
+
+          align-items: center;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  &_Mobile {
+    color: $color_text;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+
+    &_Dashboardcontainer {
+      height: 97%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      padding: 10px 15px;
+      box-sizing: border-box;
+      justify-content: center;
+
+      &_Header {
+        font-size: 40px;
+        font-weight: bold;
+
+        &_Content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        &_Button {
+          padding: 6px 12PX;
+          font-size: 16px;
+          font-weight: 500;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          outline: 2px solid rgba(255, 255, 255, 0.9);
+          background: $background_element;
+          color: $color_text;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+          }
+        }
+
+        &_Input {
+          width: 100%;
+          margin-right: 15px;
+          border-radius: 8px;
+          padding: 5px 10px;
+          box-sizing: border-box;
+          font-size: 20px;
+          outline: 2px solid $outline_color;
+          background-color: #ffffff00;
+          border: 2px solid transparent;
+          color: #ffffff;
+
+          &::placeholder {
+            color: white;
+          }
+        }
+      }
+
+      &_Farms {
+        width: 100%;
+        // height: calc(100% - 54px);
+        height: 80%;
+        padding: 2px 2px;
+        // box-sizing: border-box;
+        overflow-y: auto;
+        // white-space: nowrap;
+        text-overflow: ellipsis;
+        display: "flex";
+        justify-content: "center";
+        align-items: "center";
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        &_Item {
+          margin-top: 15px;
+          width: 100%;
+          background: $background_element;
+          backdrop-filter: blur(4px);
+          box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+            rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+          border-radius: 8px;
+          outline: 2px solid $outline_color;
+          padding: 5px 15px;
+          overflow: hidden;
+          box-sizing: border-box;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+
+          &_Header {
+            position: relative;
+            z-index: 45;
+
+            display: flex;
+            justify-content: space-between;
+
+            &_State {
+              margin-top: 5px;
+              padding: 5px 5px;
+              box-sizing: border-box;
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            span {
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            &_Edit {
+              // padding: 5px 10px;
+              box-sizing: border-box;
+              // height: 35px;
+              // border-radius: 8px;
+              // background-color: rgba(255, 255, 255, 0.5);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 20px;
+              // border: 2px solid transparent;
+              // z-index: 50;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: rgb(43, 42, 42);
+                border-color: rgb(33, 32, 32);
+              }
+            }
+
+            .Icon {
+              margin-left: 10px;
+              font-size: 20px;
+              margin-top: 2px;
+            }
+
+            .center {
+              display: flex;
+              align-items: center;
+              font-size: 24px;
+              font-weight: 500;
+            }
+          }
+
+          &_Description {
+            overflow: auto;
+            margin-top: 5px;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
+            font-size: 18px;
+            height: 65px;
+          }
+
+          &_Amount {
+            display: flex;
+            font-size: 17px;
+          }
+        }
+      }
+
+      &_Farms::-webkit-scrollbar {
+        height: 1px;
+
+        scrollbar-width: thin;
+      }
+    }
+
+    &_Farmcontainer {
+      height: 95%;
+      background: $background;
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+      position: relative;
+      box-sizing: border-box;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &_Header {
+        width: 100%;
+
+        &_Left {
+          margin-bottom: 8px;
+          display: flex;
+          font-size: 28px;
+          padding-bottom: 8px;
+          box-sizing: border-box;
+          font-weight: 500;
+        }
+
+        &_Right {
+          margin-top: 5px;
+          margin-bottom: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          
+          &_Status {
+            height: 100%;
+              white-space: nowrap;
+              width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+          }
+
+          &_Button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 5px;
+            font-size: 20px;
+            font-weight: 500;
+            border-radius: 8px;
+            margin: 10px 15px 10px 0;
+            border: none;
+            outline: 2px solid $outline_color;
+            background: $background_element;
+            backdrop-filter: blur(4px);
+            box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+              rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+            color: $color_text;
+            cursor: pointer;
+            white-space: nowrap; // ngan xuong dong
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.2);
+            }
+          }
+
+          .Icon {
+            margin-right: 5px;
+          }
+        }
+      }
+
+      &_Chart {
+        width: 100%;
+
+        &_Left {
+          margin-top: 15px;
+          height: 300px;
+          background: $background_element;
+          backdrop-filter: blur(4px);
+          box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+            rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+          border-radius: 8px;
+          outline: 2px solid $outline_color;
+          display: flex;
+          padding: 10px 20px;
+          box-sizing: border-box;
+          // background-color: $color_text;
+        }
+
+        &_Right {
+          margin: 15px 0;
+          position: relative;
+          // height: 100%;
+          background: $background_element;
+          backdrop-filter: blur(4px);
+          box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+            rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+          border-radius: 8px;
+          outline: 2px solid $outline_color;
+          display: flex;
+          overflow: auto;
+          overflow-x: hidden;
+          flex-direction: column;
+          align-items: center;
+          padding: 15px 10px;
+          box-sizing: border-box;
+
+          &_Header {
+            display: flex;
+            width: 80%;
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            font-size: 20px;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            cursor: pointer;
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.6);
+            }
+          }
+
+          &_Dropbox {
+            position: absolute;
+            width: 100%;
+
+            user-select: none;
+
+            height: calc(100% - 60px - 10px + 2px);
+            right: 0;
+            top: 0;
+            margin-top: 60px;
+
+            overflow-y: auto;
+            animation: fadeup_listequipment 0.3s ease-in-out;
+
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+              rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+            &_Item {
+              width: 100%;
+              height: 30px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              margin-top: 10px;
+              display: flex;
+              align-items: center;
+              font-size: 20px;
+              font-weight: 500;
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.75);
+              }
+            }
+
+            &::-webkit-scrollbar {
+              height: 1px;
+              scrollbar-width: thin;
+            }
+          }
+
+          &_Date {
+            margin-top: 2px;
+            font-size: 20px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            // overflow: hidden;
+            font-weight: 500;
+          }
+
+          &_Content {
+            margin-top: 5px;
+
+            font-size: 20px;
+            margin-right: auto;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          &::-webkit-scrollbar {
+            height: 1px;
+            scrollbar-width: thin;
+          }
+        }
+      }
+
+      &_Controller {
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        margin: 15px 0;
+        padding: 10px 10px 0 10px;
+        box-sizing: border-box;
+        outline: 2px solid $outline_color;
+        overflow: auto;
+        font-size: 22px;
+        user-select: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &_Header {
+          width: 100%;
+          margin-bottom: 20px;
+          display: flex;
+          position: relative;
+          align-items: center;
+          justify-content: space-between;
+
+          &_Mode {
+            display: flex;
+            align-items: center;
+            user-select: none;
+            font-size: 20px;
+            font-weight: 500;
+
+            &_State {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 5px;
+              padding: 0px 10px;
+              margin-left: 10px;
+              background-color: rgba(255, 255, 255, 0.5);
+              border-radius: 8px;
+
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.6);
+              }
+
+              &_Dropbox {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin-top: 40px;
+
+                width: 140px;
+                height: 90px;
+                animation: fadeup_listequipment 0.3s ease-in-out;
+                overflow-y: auto;
+                outline: 2px solid $outline_color;
+                z-index: 5;
+                border-radius: 8px;
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(5px);
+                box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+                &_Item {
+                  width: 100%;
+                  height: 30px;
+                  padding: 5px 10px;
+                  box-sizing: border-box;
+                  margin-top: 10px;
+                  display: flex;
+                  align-items: center;
+                  font-size: 18px;
+                  font-weight: 500;
+                  cursor: pointer;
+                  // user-select: none;
+
+                  &:hover {
+                    background-color: rgba(255, 255, 255, 0.75);
+                  }
+                }
+
+                &::-webkit-scrollbar {
+                  height: 1px;
+                  scrollbar-width: thin;
+                }
+              }
+            }
+          }
+        }
+
+        &_Body {
+          width: 100%;
+          padding: 16px 0;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: center;
+
+          &_Control {
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            justify-content: space-between;
+
+            &_switch {
+              position: relative;
+              display: inline-block;
+              width: 80px;
+              height: 40px;
+
+              &_input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+              }
+
+              .slider {
+                width: 80px;
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                outline: 2px solid $outline_color;
+                background-color: #000000;
+                -webkit-transition: 0.2s;
+                transition: 0.2s;
+              }
+
+              .slider:before {
+                position: absolute;
+                content: "";
+                height: 32px;
+                width: 32px;
+                left: 4px;
+                bottom: 4px;
+                background-color: rgb(255, 0, 0);
+                -webkit-transition: 0.2s;
+                transition: 0.2s;
+              }
+
+              input:checked + .slider {
+                background-color: #000000;
+              }
+
+              input:checked + .slider:before {
+                -webkit-transform: translateX(40px);
+                -ms-transform: translateX(40px);
+                transform: translateX(40px);
+                background-color: rgb(10, 255, 27);
+              }
+
+              /* Rounded sliders */
+              .slider.round {
+                border-radius: 40px;
+              }
+
+              .slider.round:before {
+                border-radius: 50%;
+              }
+            }
+
+            &_Statecontainer {
+              display: flex;
+              align-items: center;
+
+              &_State {
+                margin-top: 5px;
+                font-size: 20px;
+                margin-left: 10px;
+              }
+            }
+
+            &_Slidecontainer {
+              width: 100%;
+              margin-top: 18px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              &_Slider {
+                -webkit-appearance: none;
+                /* Override default CSS styles */
+                appearance: none;
+                width: 80%;
+                /* Full-width */
+                height: 5px;
+                /* Specified height */
+                background: #ffffff;
+                /* Grey background */
+                outline: none;
+                /* Remove outline */
+                opacity: 1;
+                /* Set transparency (for mouse-over effects on hover) */
+                -webkit-transition: 0.2s;
+                /* 0.2 seconds transition on hover */
+                transition: opacity 0.2s;
+
+                &::-webkit-slider-thumb {
+                  -webkit-appearance: none;
+                  /* Override default look */
+                  appearance: none;
+                  width: 20px;
+                  /* Set a specific slider handle width */
+                  height: 20px;
+                  /* Slider handle height */
+                  background: #ffffff;
+                  /* Green background */
+                  cursor: pointer;
+                  /* Cursor on hover */
+                  border-radius: 50%;
+                }
+
+                &::-moz-range-thumb {
+                  width: 25px;
+                  /* Set a specific slider handle width */
+                  height: 25px;
+                  /* Slider handle height */
+                  background: #ffffff;
+                  /* Green background */
+                  cursor: pointer;
+                  /* Cursor on hover */
+                }
+              }
+            }
+
+            &_Timecontainer {
+              width: 100%;
+              height: 30px;
+              margin-top: 18px;
+              padding: 5px;
+              background-color: rgba(255, 255, 255, 0.5);
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              overflow: hidden;
+              cursor: pointer;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.6);
+              }
+
+              &_Times {
+                font-size: 20px;
+                margin-left: 6px;
+              }
+            }
+          }
+        }
+
+        &::-webkit-scrollbar {
+          height: 1px;
+
+          scrollbar-width: thin;
+        }
+      }
+
+      &_Settime {
+        position: relative;
+        overflow: auto;
+        // width: 350px;
+        height: 250px;
+        // position: fixed;
+        // bottom: 0;
+        // left: 50%;
+        // transform: translate(-50%, 100%);
+        background-color: #000000;
+        border-radius: 8px;
+        outline: 2px solid $outline_color;
+
+        &_Title {
+          width: 100%;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 10px;
+          box-sizing: border-box;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          border-bottom: 2px solid #ffffff;
+
+          &_Offset {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+
+            &_Input {
+              height: 25px;
+              width: 80px;
+              margin-left: 10px;
+              border: none;
+              outline: 2px solid rgba(255, 255, 255, 0.9);
+              background: $background_element;
+              color: $color_text;
+              padding: 0px 10px;
+              box-sizing: border-box;
+              font-size: 15px;
+              border-radius: 8px;
+
+              &_Dropbox {
+                height: 50px;
+                margin-top: 8px;
+                padding: 10px;
+                overflow-y: auto;
+                background-color: #000000;
+                border-radius: 8px;
+                outline: 2px solid $outline_color;
+                box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+                  rgba($color_text, 0.3) 0px 30px 60px -30px;
+                &_Item {
+                  
+                }
+              }
+            }
+          }
+          &_Icon {
+            rotate: 45deg;
+            cursor: pointer;
+          }
+        }
+
+        &_Body {
+          width: 100%;
+          height: calc(100% - 50px);
+          display: flex;
+
+          &_Left {
+            flex: 7;
+            height: 100%;
+
+            box-sizing: border-box;
+            &_Title {
+              padding: 10px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              font-size: 20px;
+              .Icon {
+                cursor: pointer;
+              }
+            }
+            &_Times {
+              width: 100%;
+              // height: calc(100% - 45px);
+              height: 120px;
+              overflow-y: auto;
+              padding: 10px;
+              box-sizing: border-box;
+              &_Item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                height: 35px;
+                margin-top: 10px;
+                padding: 5px 5px;
+                box-sizing: border-box;
+                font-size: 20px;
+                background-color: #686666;
+                border-radius: 8px;
+
+                &_Edit {
+                  display: flex;
+                  align-items: center;
+                  .Icon {
+                    margin-left: 10px;
+                    cursor: pointer;
+                  }
+                }
+              }
+              &::-webkit-scrollbar {
+                height: 1px;
+                scrollbar-width: thin;
+              }
+            }
+          }
+
+          &_Right {
+            flex: 3;
+            height: 100%;
+            position: relative;
+            &_Button {
+              width: 100%;
+              padding: 5px 16px;
+              position: absolute;
+              border-bottom-right-radius: 8px;
+              bottom: 0%;
+              // right: 20%;
+              // margin-left: 10px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      &_Nofarm {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 30px;
+        font-weight: 500;
+      }
+    }
+
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &_Addfarmcontainer {
+      height: 90%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+
+      &_Title {
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 28px;
+        padding-bottom: 8px;
+        box-sizing: border-box;
+        font-weight: 500;
+
+        &_Header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &_ButtonAdd {
+          padding: 1px 4px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          border-radius: 8px;
+          border: 2px solid transparent;
+          background: $background_element;
+          color: $color_text;
+          cursor: pointer;
+
+          &_Text {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+          }
+        }
+      }
+
+      &_Body {
+        width: 100%;
+        height: 90%;
+        padding: 15px 25px 15px 30px;
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        outline: 2px solid $outline_color;
+        box-sizing: border-box;
+        // display: flex;
+        overflow: auto;
+        align-items: center;
+
+        &::-webkit-scrollbar {
+          display: none; /* Chrome, Safari và Opera */
+        }
+
+        &_Left {
+          &_Items {
+            display: flex;
+            flex-direction: column;
+            font-size: 23px;
+
+            &_Input {
+              color: $color_text;
+              margin-top: 10px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              // width: 90%;
+              // max-width: 90%;
+              height: 40px;
+              max-height: 100px;
+              border-radius: 8px;
+              font-size: 20px;
+              outline: 2px solid $outline_color;
+              background-color: #ffffff00;
+              border: 2px solid transparent;
+            }
+          }
+        }
+
+        &_Right {
+          user-select: none;
+          // width: 50%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-between;
+
+          &_Map {
+            width: 100%;
+            margin-top: 30px;
+            height: 300px;
+            border-radius: 8px;
+          }
+
+          &_Farmselection {
+            display: flex;
+            width: 98%;
+            justify-items: flex-start;
+            flex-direction: column;
+            font-size: 23px;
+            margin-right: auto;
+            position: relative;
+
+            &_Input {
+              color: $color_text;
+              margin-top: 10px;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              width: 100%;
+              height: 40px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              border-radius: 8px;
+              font-size: 20px;
+              outline: 2px solid $outline_color;
+              background-color: #ffffff00;
+              border: 2px solid transparent;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: black;
+                border-color: rgb(33, 32, 32);
+              }
+            }
+
+            &_Dropbox {
+              position: absolute;
+              top: 0;
+              left: 0;
+              margin-top: 90px;
+              width: 100%;
+              height: 180px;
+              outline: 2px solid $outline_color;
+              animation: fadeup_listequipment 0.3s ease-in-out;
+              overflow-y: auto;
+              border-radius: 8px;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(5px);
+              box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+              &_Items {
+                width: 100%;
+                height: 30px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                font-size: 20px;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: rgba(255, 255, 255, 0.7);
+                }
+              }
+
+              &::-webkit-scrollbar {
+                height: 1px;
+                scrollbar-width: thin;
+              }
+            }
+          }
+
+          &_Buttons {
+            width: 100%;
+            margin-top: 50px;
+            // height: 40px;
+            // display: flex;
+            // justify-content: flex-end;
+            // align-items: center;
+
+            &_Items {
+              width: 100%;
+              margin: 10px 0;
+              padding: 5px 10px;
+              box-sizing: border-box;
+
+              outline: 2px solid $outline_color;
+              background: $background_element;
+              color: $color_text;
+              cursor: pointer;
+              font-size: 20px;
+              border: 2px solid transparent;
+              border-radius: 8px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: black;
+                border-color: rgb(33, 32, 32);
+              }
+            }
+          }
+        }
+
+        &_Qrbutton {
+          padding: 10px 10px;
+          box-sizing: border-box;
+          font-size: 21px;
+          font-weight: 500;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid transparent;
+          background: $background_element;
+          color: $color_text;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            border-color: rgb(33, 32, 32);
+          }
+        }
+
+        &_State {
+          margin-top: 20px;
+          font-size: 25px;
+          display: flex;
+          align-items: center;
+        }
+
+        &::-webkit-scrollbar {
+          height: 1px;
+
+          scrollbar-width: thin;
+        }
+      }
+    }
+
+    &_Editfarmcontainer {
+      width: 100%;
+      height: 97%;
+      background: $background;
+      border-radius: 8px;
+
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+
+      &_Title {
+        height: 60px;
+        display: flex;
+        font-size: 28px;
+        padding-bottom: 8px;
+        box-sizing: border-box;
+        font-weight: 500;
+      }
+
+      &_Body {
+        width: 100%;
+        height: 89%;
+        overflow-y: scroll;
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        outline: 2px solid $outline_color;
+        padding: 15px 25px 15px 30px;
+        box-sizing: border-box;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        &_Left {
+          margin: 10px 0;
+
+          &_Items {
+            font-size: 23px;
+
+            &_Input {
+              color: $color_text;
+              margin-top: 10px;
+              padding: 8px 10px;
+              box-sizing: border-box;
+              width: 100%;
+              border-radius: 8px;
+              font-size: 20px;
+              outline: 2px solid $outline_color;
+              background-color: #ffffff00;
+              border: 2px solid transparent;
+            }
+          }
+        }
+
+        &_Right {
+          margin: 10px 0;
+          user-select: none;
+
+          &_Map {
+            width: 100%;
+            margin-top: 10px;
+            height: 300px;
+            border-radius: 8px;
+          }
+
+          &_Farmselection {
+            display: flex;
+            width: 100%;
+            justify-items: flex-start;
+            flex-direction: column;
+            font-size: 23px;
+            margin-right: auto;
+            position: relative;
+
+            &_Input {
+              color: $color_text;
+              margin-top: 10px;
+              padding: 8px 10px;
+              box-sizing: border-box;
+              width: 100%;
+              border-radius: 8px;
+              font-size: 20px;
+              outline: 2px solid $outline_color;
+              background-color: #ffffff00;
+              border: 2px solid transparent;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: black;
+                border-color: rgb(33, 32, 32);
+              }
+            }
+
+            &_Dropbox {
+              position: absolute;
+              top: 0;
+              left: 0;
+              margin-top: 90px;
+              width: 100%;
+              height: 180px;
+              outline: 2px solid $outline_color;
+              animation: fadeup_listequipment 0.3s ease-in-out;
+              overflow-y: auto;
+              border-radius: 8px;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(5px);
+              box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+              &_Items {
+                width: 100%;
+                height: 30px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                font-size: 20px;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: rgba(255, 255, 255, 0.7);
+                }
+              }
+
+              &::-webkit-scrollbar {
+                height: 1px;
+                scrollbar-width: thin;
+              }
+            }
+          }
+
+          &_Buttons {
+            margin: 30px 0 0 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            &_Items {
+              width: 100%;
+              padding: 8px 10px;
+              box-sizing: border-box;
+
+              outline: 2px solid $outline_color;
+              background: $background_element;
+              color: $color_text;
+              cursor: pointer;
+              font-size: 20px;
+              border: 2px solid transparent;
+              border-radius: 8px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.9);
+                color: black;
+                border-color: rgb(33, 32, 32);
+              }
+            }
+          }
+        }
+
+        &_Qrbutton {
+          padding: 10px 10px;
+          box-sizing: border-box;
+          font-size: 21px;
+          font-weight: 500;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid transparent;
+          background: $background_element;
+          color: $color_text;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            border-color: rgb(33, 32, 32);
+          }
+        }
+
+        &_State {
+          margin-top: 20px;
+          font-size: 25px;
+          display: flex;
+          align-items: center;
+        }
+
+        &::-webkit-scrollbar {
+          height: 1px;
+
+          scrollbar-width: thin;
+        }
+      }
+    }
+
+    &_Usercontainer {
+      // height: 90%;
+      width: 100%;
+      background: $background;
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+      box-shadow: rgba($box_shadow_color, 0.8) 0px 50px 100px -20px,
+        rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+      will-change: width;
+      padding: 15px 15px;
+      box-sizing: border-box;
+
+      &_Body {
+        width: 100%;
+        height: calc(100% - 60px);
+        background: $background_element;
+        backdrop-filter: blur(4px);
+        box-shadow: rgba($box_shadow_color, 0.7) 0px 15px 35px -20px,
+          rgba($box_shadow_color, 0.3) 0px 30px 60px -30px;
+        border-radius: 8px;
+        padding: 25px 25px 15px 30px;
+        box-sizing: border-box;
+        outline: 2px solid $outline_color;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        font-size: 20px;
+
+        &_Userinfo {
+          width: 100%;
+          height: 80px;
+          display: flex;
+
+          &_Image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+          }
+
+          &_Name {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            margin-left: 30px;
+            border-left: 2px solid #d4dae3;
+            padding: 10px 20px;
+            box-sizing: border-box;
+          }
+        }
+
+        &_Language {
+          margin-top: 50px;
+          width: 100%;
+          padding-left: 10px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+
+          &_Options {
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            margin-left: 20px;
+            padding: 0px 15px;
+            border-radius: 8px;
+            margin-top: 4px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.5);
+            box-sizing: border-box;
+
+            &_Dropbox {
+              position: absolute;
+              height: 130px;
+              width: 150px;
+              right: 0;
+              top: 0;
+              margin-top: 35px;
+              overflow-y: auto;
+              animation: fadeup_listequipment 0.3s ease-in-out;
+              outline: 2px solid $outline_color;
+              border-radius: 8px;
+              background: rgba(0, 0, 0, 0.85);
+              backdrop-filter: blur(5px);
+              box-shadow: rgba(0, 0, 0, 0.8) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+              &_Items {
+                width: 100%;
+                height: 30px;
+                padding: 5px 10px;
+                box-sizing: border-box;
+                margin-top: 10px;
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+                font-weight: 500;
+                cursor: pointer;
+                // user-select: none;
+
+                &:hover {
+                  background-color: rgba(255, 255, 255, 0.75);
+                }
+              }
+            }
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.7);
+              border-radius: 8px;
+            }
+          }
+        }
+
+        &_Items {
+          margin-top: 10px;
+          width: 100%;
+          height: 40px;
+          padding-left: 10px;
+          box-sizing: border-box;
+          display: flex;
+
+          align-items: center;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeup_listequipment {
+  0% {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

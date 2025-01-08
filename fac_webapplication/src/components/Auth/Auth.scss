@@ -1,0 +1,453 @@
+@mixin auth-shadow {
+  box-shadow: inset 0 0 2px rgb(255, 255, 255);
+}
+$blur-amount: 10px;
+$border-radius-amount: 5px;
+$border-amount: 1px solid rgb(120, 119, 119);
+$font-size-logo: 1px solid rgb(120, 119, 119);
+$font-size-region: larger;
+$font-size-small: 18px;
+
+.Auth {
+  height: 100vh;
+  width: 100%;
+
+  &_BrowserView {
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../public/images/duriandesktop.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &_Logo {
+      overflow-y: scroll;
+      box-shadow: 0px 0px 16px white;
+      background-color: rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(30px);
+      border-radius: 1rem;
+      border: 2px solid white;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      backdrop-filter: blur($blur-amount);
+      margin-bottom: 10px;
+      &_Image {
+        & img {
+          width: 70px;
+          height: 60px;
+        }
+      }
+      .div1 {
+        font-size: 20px;
+        color: white;
+        font-weight: 700;
+      }
+      .div2 {
+        font-size: 16px;
+        color: white;
+      }
+    }
+    &_Container {
+      
+      overflow-y: scroll;
+      box-shadow: 0px 0px 16px white;
+      background-color: rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(30px);
+      border-radius: 1rem;
+      border: 2px solid white;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      margin-bottom: 100px;
+      &_Form {
+        width: 450px;
+        &_Header {
+          margin-bottom: 3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          & div {
+            position: relative;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 0 1rem;
+            height: 65px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 0px 0px 20px 20px;
+            color: rgb(255, 255, 255);
+            box-shadow: 0px 0px 16px white;
+            // &:after{
+            //   content: "";
+            //   position: absolute;
+            //   right: -5px;
+            //   top: 0;
+            //   border-left: 15px solid transparent;
+            //   border-right: 10px solid transparent;
+            //   border-top: 10px solid rgb(0, 0, 0, 0.4);
+
+            // }
+            // &:before{
+            //   content: "";
+            //   position: absolute;
+            //   left: -8px;
+            //   top: 0;
+            //   border-left: 15px solid transparent;
+            //   border-right: 10px solid transparent;
+            //   border-top: 10px solid rgb(0, 0, 0, 0.4);
+            // }
+          }
+        }
+
+        &_Body {
+          padding: 0 2rem;
+          &_Item {
+            margin-bottom: 1rem;
+            width: 100%;
+            &_Content {
+              display: flex;
+              align-items: center;
+              padding: 0.75rem 1.5rem;
+              border-radius: 2rem;
+              border: 2px solid white;
+              &.Error {
+                border: 2px solid red;
+              }
+              &_Icon {
+                margin-left: 0.5rem;
+                color: white;
+              }
+              &_IconEye {
+                padding: 0 0.5rem;
+                cursor: pointer;
+                color: white;
+              }
+
+              &_Input {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                & input {
+                  color: white;
+                  width: 100%;
+                  background-color: transparent;
+                  border: none;
+                  font-size: 1rem;
+                  &:focus {
+                    outline: none;
+                  }
+                  &::placeholder {
+                    color: white;
+                    text-transform: capitalize;
+                  }
+                  &:-webkit-autofill,
+                  &:-webkit-autofill:hover,
+                  &:-webkit-autofill:focus,
+                  &:-webkit-autofill:active {
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: white !important;
+                    background-color: transparent !important;
+                    caret-color: white; /* Đặt màu con trỏ nháy thành trắng */
+                  }
+                }
+              }
+            }
+            &_Choice {
+              display: flex;
+              align-items: center;
+              color: black;
+              justify-content: space-between;
+              & div {
+                display: flex;
+                color: white;
+                align-items: center;
+                &:first-child {
+                  & input {
+                    margin-right: 0.5rem;
+                    &[type="checkbox"] {
+                      cursor: pointer;
+                      width: 1rem;
+                      height: 1rem;
+                    }
+                  }
+                }
+                &:last-child {
+                  cursor: pointer;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+            &_OTP {
+              width: 100px;
+              color: #ffffff;
+              font-weight: 500;
+              font-size: 1rem;
+              align-items: center;
+              cursor: pointer;
+              margin-left: 10px;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            &_Validate {
+              width: 100%;
+              font-size: 14px;
+              color: red;
+              padding: 2px;
+            }
+          }
+        }
+
+        &_Footer {
+          padding: 0 2rem 3rem 2rem;
+          & button {
+            width: 100%;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: rgb(255, 255, 255);
+            border-radius: 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s linear;
+            &:hover {
+              background-color: black;
+              color: white;
+            }
+          }
+          &_Choice {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            color: white;
+            & div {
+              font-weight: normal;
+              &:first-child {
+                font-size: 1rem;
+                cursor: pointer;
+              }
+              &:last-child {
+                margin-left: 0.5rem;
+                font-weight: bold;
+                cursor: pointer;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_MobileView {
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../public/images/durianphone.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &_Title {
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 50px;
+      h1, p {
+        color: black;
+        text-align: center;
+      }
+      h1 {
+        font-size: 40px;
+        margin: 0;
+      }
+      p {
+        margin: 2px 0;
+      }
+    }
+    &_Container {
+      padding-top: 3rem;
+      overflow-y: scroll;
+      box-shadow: 0px 0px 16px rgb(134, 133, 133);
+      
+      backdrop-filter: blur(30px);
+      border-radius: 1rem;
+      border: 2px solid rgb(162, 161, 161);
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      margin-bottom: 100px;
+      &_Form {
+        // width: 450px;
+        &_Body {
+          padding: 0 2rem;
+          &_Item {
+            margin-bottom: 1rem;
+            width: 100%;
+            &_Content {
+              display: flex;
+              align-items: center;
+              padding: 0.75rem 1.5rem;
+              border-radius: 2rem;
+              border: 2px solid rgb(0, 0, 0);
+              &.Error {
+                border: 2px solid red;
+              }
+              &_Icon {
+                margin-right: 0.5rem;
+                color: rgb(0, 0, 0);
+              }
+              &_IconEye {
+                padding: 0 0.5rem;
+                cursor: pointer;
+                color: rgb(0, 0, 0);
+              }
+
+              &_Input {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                & input {
+                  color: rgb(0, 0, 0);
+                  width: 100%;
+                  background-color: transparent;
+                  border: none;
+                  font-size: 1rem;
+                  &:focus {
+                    outline: none;
+                  }
+                  &::placeholder {
+                    color: rgb(0, 0, 0);
+                    text-transform: capitalize;
+                  }
+                  &:-webkit-autofill,
+                  &:-webkit-autofill:hover,
+                  &:-webkit-autofill:focus,
+                  &:-webkit-autofill:active {
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: rgb(0, 0, 0) !important;
+                    background-color: transparent !important;
+                    caret-color: rgb(0, 0, 0); /* Đặt màu con trỏ nháy thành trắng */
+                  }
+                }
+              }
+            }
+            &_Choice {
+              display: flex;
+              align-items: center;
+              color: black;
+              justify-content: space-between;
+              & div {
+                display: flex;
+                color: rgb(0, 0, 0);
+                align-items: center;
+                &:first-child {
+                  & input {
+                    margin-right: 0.5rem;
+                    &[type="checkbox"] {
+                      cursor: pointer;
+                      width: 1rem;
+                      height: 1rem;
+                    }
+                  }
+                }
+                &:last-child {
+                  cursor: pointer;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+            &_OTP {
+              width: 100px;
+              color: #000000;
+              font-weight: 500;
+              font-size: 1rem;
+              align-items: center;
+              cursor: pointer;
+              margin-left: 10px;
+              
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            &_Validate {
+              width: 100%;
+              font-size: 14px;
+              color: red;
+              padding: 2px;
+            }
+          }
+        }
+
+        &_Footer {
+          padding: 0 2rem 3rem 2rem;
+          & button {
+            width: 100%;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: rgb(255, 255, 255);
+            border-radius: 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s linear;
+            &:hover {
+              background-color: black;
+              color: white;
+            }
+          }
+          &_Choice {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            color: rgb(0, 0, 0);
+            & div {
+              font-weight: normal;
+              &:first-child {
+                font-size: 1rem;
+                cursor: pointer;
+              }
+              &:last-child {
+                margin-left: 0.5rem;
+                border-bottom: 1px #000000 solid;
+                
+                cursor: pointer;
+                
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

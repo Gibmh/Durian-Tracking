@@ -1,0 +1,62 @@
+{
+  "name": "fac_webapplication",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "dayjs": "^1.11.11",
+    "dotenv": "^16.4.5",
+    "framer-motion": "^11.2.9",
+    "mqtt": "^5.7.2",
+    "paho-mqtt": "^1.1.0",
+    "preact": "^10.22.0",
+    "qr-scanner": "^1.4.2",
+    "react": "^18.3.1",
+    "react-cssfx-loading": "^2.1.0",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "react-qr-scanner": "^1.0.0-alpha.11",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "5.0.1",
+    "react-table": "^7.8.0",
+    "react-time-picker": "^7.0.0",
+    "react-toastify": "^10.0.5",
+    "recharts": "^2.10.4",
+    "sass": "^1.77.2",
+    "web-vitals": "^2.1.4",
+    "html5-qrcode": "^2.2.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "ajv": "^7.2.4",
+    "html5-qrcode": "^2.2.7"
+  }
+}
